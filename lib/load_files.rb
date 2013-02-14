@@ -69,8 +69,35 @@ class LoadFiles
   end
 end
 
-# LoadFiles.load_invoices_file
-# puts Invoice.all
+puts "********** Invoice Find By **********"
+LoadFiles.load_invoices_file
+puts Invoice.find_by_id(5)
+puts
+puts Invoice.find_by_customer_id(2)
+puts
+puts Invoice.find_by_merchant_id(27)
+puts
+puts Invoice.find_by_status("shipped")
+puts
+puts Invoice.find_by_created_at("2012-03-25 09:54:09 UTC")
+puts
+puts Invoice.find_by_updated_at("2012-03-12 05:54:09 UTC")
+puts "\n********** Invoice Find All By **********"
+puts Invoice.find_all_by_id(5)
+puts
+puts Invoice.find_all_by_customer_id(2)
+puts
+puts Invoice.find_all_by_merchant_id(27)
+puts
+puts Invoice.find_all_by_status("shipped")
+puts
+puts Invoice.find_all_by_created_at("2012-03-25 09:54:09 UTC")
+puts
+puts Invoice.find_all_by_updated_at("2012-03-12 05:54:09 UTC")
+puts "\n********** Invoice Randoms **********"
+puts Invoice.random_id
+
+puts "\n********** Merchant Find By **********"
 LoadFiles.load_merchants_file
 puts Merchant.find_by_id(3)
 puts
@@ -83,7 +110,6 @@ puts
 puts Merchant.find_all_by_id(8)
 puts
 puts Merchant.find_all_by_name("Williamson Group")
-puts
 puts
 # LoadFiles.load_items_file
 # puts Item.all
