@@ -24,6 +24,7 @@ class Merchant
     @merchants
   end
 
+# ************************* Find By *************************
   def self.find_by_id(id)
     collection.find{|merchant| merchant.id == id}
   end
@@ -40,6 +41,8 @@ class Merchant
     collection.find{|merchant| merchant.updated_at == updated_at}
   end
 
+# ************************* Find All By *************************
+
   def self.find_all_by_id(id)
     collection.select{|merchant| merchant.id == id}
   end
@@ -55,6 +58,8 @@ class Merchant
   def self.find_all_by_updated_at(updated_at)
     collection.select{|merchant| merchant.updated_at == updated_at}
   end
+
+# ************************* Find Random *************************
 
   def self.random
     collection.sample
