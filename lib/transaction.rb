@@ -93,4 +93,11 @@ class Transaction
     collection.select{|transactions| transactions.updated_at == updated_at}
   end
 
+  # ***************************** Random *****************************
+
+  def self.random
+    collection.sample
+  end
+
+
 end

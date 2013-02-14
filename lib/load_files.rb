@@ -133,6 +133,9 @@ puts Transaction.find_all_by_created_at("2012-03-27 14:54:10 UTC")
 puts
 puts Transaction.find_all_by_updated_at("2012-03-27 14:54:10 UTC")
 
+puts "\n********** Transactions Randoms **********"
+puts Transaction.random
+
 puts "\n************************************************************"
 
 puts "\n********** Merchant Find By **********"
