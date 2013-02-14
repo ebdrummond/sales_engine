@@ -115,6 +115,30 @@ puts
 puts Merchant.find_all_by_name("Williamson Group")
 puts
 
+puts "*"*20 + "Customer Find By" + "*"*20
+LoadFiles.load_customers_file
+puts Customer.find_by_id(6)
+puts
+puts Customer.find_by_first_name("Mariah")
+puts
+puts Customer.find_by_last_name("Kuhn")
+puts
+puts Customer.find_by_created_at("2012-03-27 14:54:10 UTC")
+puts
+puts Customer.find_by_updated_at("2012-03-27 14:54:11 UTC")
+puts
+puts Customer.find_all_by_id(8)
+puts
+puts Customer.find_all_by_first_name("Heber")
+puts
+puts Customer.find_all_by_last_name("Fadel")
+puts
+puts Customer.find_all_by_created_at("2012-03-27 14:54:10 UTC")
+puts
+puts Customer.find_all_by_updated_at("2012-03-27 14:54:11 UTC")
+puts
+puts Customer.random
+
 # LoadFiles.load_items_file
 # puts Item.all
 # LoadFiles.load_customers_file
