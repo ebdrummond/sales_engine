@@ -62,12 +62,12 @@ class TransactionTest <MiniTest::Unit::TestCase
 
   def test_find_all_by_id
     transaction = Transaction.find_all_by_id(8)
-    assert_equal 2, transaction.count
+    assert_equal 1, transaction.count
   end
 
   def test_find_all_by_invoice_id
     transaction = Transaction.find_all_by_invoice_id(7)
-    assert_equal 2, transaction.count
+    assert_equal 1, transaction.count
   end
 
   def test_find_all_by_credit_card_number
