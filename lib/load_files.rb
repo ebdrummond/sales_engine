@@ -99,6 +99,42 @@ puts Invoice.random
 
 puts "\n************************************************************"
 
+puts "********** Transaction Find By **********"
+LoadFiles.load_transactions_file
+
+puts Transaction.find_by_id(1)
+puts
+puts Transaction.find_by_invoice_id(10)
+puts
+puts Transaction.find_by_credit_card_number(4540842003561938)
+puts
+puts Transaction.find_by_credit_card_expiration_date
+puts
+puts Transaction.find_by_result("success")
+puts
+puts Transaction.find_by_created_at("2012-03-27 14:54:10 UTC")
+puts
+puts Transaction.find_by_updated_at("2012-03-27 14:54:10 UTC")
+
+puts "\n ********** Transaction Find All By **********"
+LoadFiles.load_transactions_file
+
+puts Transaction.find_all_by_id(1)
+puts
+puts Transaction.find_all_by_invoice_id(10)
+puts
+puts Transaction.find_all_by_credit_card_number(4540842003561938)
+puts
+puts Transaction.find_all_by_credit_card_expiration_date
+puts
+puts Transaction.find_all_by_result("success")
+puts
+puts Transaction.find_all_by_created_at("2012-03-27 14:54:10 UTC")
+puts
+puts Transaction.find_all_by_updated_at("2012-03-27 14:54:10 UTC")
+
+puts "\n************************************************************"
+
 puts "\n********** Merchant Find By **********"
 LoadFiles.load_merchants_file
 
