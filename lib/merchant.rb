@@ -56,4 +56,8 @@ class Merchant
     collection.select{|merchant| merchant.updated_at == updated_at}
   end
 
+  def self.random
+    collection.sample
+  end
+
 end
