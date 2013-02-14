@@ -69,26 +69,28 @@ class LoadFiles
   end
 end
 
-LoadFiles.load_invoices_file
-puts Invoice.all
+# LoadFiles.load_invoices_file
+# puts Invoice.all
 LoadFiles.load_merchants_file
-puts Merchant.all
-LoadFiles.load_items_file
-puts Item.all
-LoadFiles.load_customers_file
-puts Customer.all
-LoadFiles.load_invoice_items_file
-puts InvoiceItem.all
-LoadFiles.load_transactions_file
-puts Transaction.all
-
-# LoadFiles.new.load_invoices_file
-# LoadFiles.new.load_merchants_file
-# LoadFiles.new.load_customers_file
-# LoadFiles.new.load_invoice_items_file
+puts Merchant.find_by_id(3)
+puts
+puts Merchant.find_by_name("Klein, Rempel and Jones")
+puts
+puts Merchant.find_by_created_at("2012-03-27 14:53:59 UTC")
+puts
+puts Merchant.find_by_updated_at("2012-03-27 14:53:59 UTC")
+puts
+puts Merchant.find_all_by_id(8)
+puts
+puts Merchant.find_all_by_name("Williamson Group")
+puts
+puts
+# LoadFiles.load_items_file
+# puts Item.all
+# LoadFiles.load_customers_file
+# puts Customer.all
+# LoadFiles.load_invoice_items_file
+# puts InvoiceItem.all
 # LoadFiles.load_transactions_file
-# LoadFiles.new.load_items_file
+# puts Transaction.all
 
-
-
-  # invoices_data.add(Invoice.new(row))

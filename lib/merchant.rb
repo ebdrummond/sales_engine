@@ -1,16 +1,15 @@
 require 'csv'
 require 'time'
-# require 'lib/load_files'
 
 class Merchant
   attr_reader :id, :name, :created_at, :updated_at
 
 
   def initialize(input)
-    @id = input["id"]
+    @id = input["id"].to_i
     @name = input["name"]
-    @created_at = Time.parse(input["created_at"])
-    @updated_at = Time.parse(input["updated_at"])
+    @created_at = Time.parse(input["created_at"]).to_s
+    @updated_at = Time.parse(input["updated_at"]).to_s
   end
 
   def to_s
@@ -21,8 +20,32 @@ class Merchant
     @merchants = merchants
   end
 
-  def self.all
+  def self.collection
     @merchants
+  end
+
+  def self.find_by_id(id)
+    collection.find{|merchant| merchant.id == id}
+  end
+
+  def self.find_by_name(name)
+    collection.find{|merchant| merchant.name == name}
+  end
+
+  def self.find_by_created_at(created_at)
+    collection.find{|merchant| merchant.created_at == created_at}
+  end
+
+  def self.find_by_updated_at(updated_at)
+    collection.find{|merchant| merchant.updated_at == updated_at}
+  end
+
+  def self.find_all_by_id(id)
+    collection.select{|merchant| merchant.id == id}
+  end
+
+  def self.find_all_by_name(name)
+    collection.select{|merchant| merchant.name == name}
   end
 
 end
