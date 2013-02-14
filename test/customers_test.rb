@@ -1,7 +1,7 @@
 require 'csv'
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/customers'
+require './lib/customer'
 
 class CustomerTest <MiniTest::Unit::TestCase
 
