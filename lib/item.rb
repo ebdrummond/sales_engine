@@ -60,7 +60,7 @@ class Item
 
   # ***************************** Find All By *****************************
 
- def self.find_all_by_id(id)
+  def self.find_all_by_id(id)
     collection.select{|item| item.id == id}
   end
 
