@@ -95,7 +95,4 @@ class Invoice_Item_Test < MiniTest::Unit::TestCase
     invoice_item = InvoiceItem.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
     assert_equal 9, invoice_item.count
   end
-
-
-
 end
