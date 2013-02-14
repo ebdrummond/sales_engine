@@ -138,6 +138,45 @@ puts Transaction.random
 
 puts "\n************************************************************"
 
+puts "********** Item Find By **********"
+LoadFiles.load_items_file
+
+puts Item.find_by_id(1)
+puts
+puts Item.find_by_name("Item Nemo Facere")
+puts
+puts Item.find_by_description("Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.")
+puts
+puts Item.find_by_unit_price(32301)
+puts
+puts Item.find_by_merchant_id(1)
+puts
+puts Item.find_by_created_at("2012-03-27 14:53:59 UTC")
+puts
+puts Item.find_by_updated_at("2012-03-27 14:53:59 UTC")
+
+puts "********** Item Find All By **********"
+LoadFiles.load_items_file
+
+puts Item.find_all_by_id(1)
+puts
+puts Item.find_all_by_name("Item Nemo Facere")
+puts
+puts Item.find_all_by_description("Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.")
+puts
+puts Item.find_all_by_unit_price(32301)
+puts
+puts Item.find_all_by_merchant_id(1)
+puts
+puts Item.find_all_by_created_at("2012-03-27 14:53:59 UTC")
+puts
+puts Item.find_all_by_updated_at("2012-03-27 14:53:59 UTC")
+
+puts "********** Item Find Random **********"
+puts Item.random
+
+puts "\n************************************************************"
+
 puts "\n********** Merchant Find By **********"
 LoadFiles.load_merchants_file
 

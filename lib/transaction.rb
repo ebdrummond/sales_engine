@@ -29,9 +29,6 @@ class Transaction
 
   # ***************************** Find By *****************************
 
-  # id,invoice_id,credit_card_number,credit_card_expiration_date,result,
-  # created_at,updated_at
-
   def self.find_by_id(id)
     collection.find{|transaction| transaction.id == id}
   end
@@ -61,9 +58,6 @@ class Transaction
   end
 
   # ***************************** Find All By *****************************
-
-  # id,invoice_id,credit_card_number,credit_card_expiration_date,result,
-  # created_at,updated_at
 
   def self.find_all_by_id(id)
     collection.select{|transaction| transaction.id == id}
