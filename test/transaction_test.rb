@@ -1,26 +1,99 @@
 require 'csv'
 require 'minitest/autorun'
-require 'minitest/pride'
+require 'minitest/emoji'
 require './lib/transaction'
-require './lib/load_files'
+# require './lib/load_files'
  
 class TransactionTest <MiniTest::Unit::TestCase
 
-  # def test_create_transaction
-  #   transaction = Transaction.new({"id" => 1, "invoice_id" => 2, "credit_card_number" => 3, "credit_card_expiration_date" => 4, "result" => 5, "created_at" => "2012-03-25 09:54:09 UTC", "updated_at" =>"2012-03-25 09:54:09 UTC"})
-  #   assert_equal 1, transaction.id
-  #   assert_equal 2, transaction.invoice_id
-  #   assert_equal 3, transaction.credit_card_number
-  #   assert_equal 4, transaction.credit_card_expiration_date
-  #   assert_equal 5, transaction.result
+  def setup
+    transactions_file = CSV.open("./data/test_transactions.csv", headers: true)
+    transactions= []
 
-  #   assert_equal Time.utc(2012, 3, 25, 9, 54, 9), transaction.created_at
-  #   assert_equal Time.utc(2012, 3, 25, 9, 54, 9), transaction.updated_at 
+    transactions_file.each do |row|
+      transactions<< Transaction.new(row)
+    end
+    Transaction.store(transactions)
+  end
+
+  # def test_trans_data_has_transactions
+  #   data = LoadFiles.load_transactions_file
+  #   assert_operator 1, :<=, data.length
   # end
 
-  def test_trans_data_has_transactions
-    data = LoadFiles.load_transactions_file
-    assert_operator 1, :<=, data.length
+  # ********************** Find By **********************
+
+  def test_find_by_id
+    transaction = Transaction.find_by_id(6)
+    assert_equal 6, transaction.id
   end
- 
+
+  def test_find_by_invoice_id
+    transaction = Transaction.find_by_invoice_id(10)
+    assert_equal 10, transaction.invoice_id
+  end
+
+  def test_find_by_credit_card_number
+    transaction = Transaction.find_by_credit_card_number(4580251236515201)
+    assert_equal 4580251236515201, transaction.credit_card_number
+  end
+
+  def test_find_by_credit_card_expiration_date
+    transaction = Transaction.find_by_credit_card_expiration_date("")
+    assert_equal "", transaction.credit_card_expiration_date
+  end
+
+  def test_find_by_result
+    transaction = Transaction.find_by_result("success")
+    assert_equal "success", transaction.result
+  end
+
+  def test_find_by_created_at
+    transaction = Transaction.find_by_created_at("2012-03-27 14:54:09 UTC")
+    assert_equal "2012-03-27 14:54:09 UTC", transaction.created_at
+  end
+
+  def test_find_by_updated_at
+    transaction = Transaction.find_by_updated_at("2012-03-27 14:54:09 UTC")
+    assert_equal "2012-03-27 14:54:09 UTC", transaction.updated_at
+  end
+
+  # ********************** Find All By **********************
+
+  def test_find_all_by_id
+    transaction = Transaction.find_all_by_id(8)
+    assert_equal 1, transaction.count
+  end
+
+  def test_find_all_by_invoice_id
+    transaction = Transaction.find_all_by_invoice_id(7)
+    assert_equal 1, transaction.count
+  end
+
+  def test_find_all_by_credit_card_number
+    transaction = Transaction.find_all_by_credit_card_number(4580251236515201)
+    assert_equal 1, transaction.count
+  end
+
+  def test_find_all_by_credit_card_expiration_date
+    transaction = Transaction.find_all_by_credit_card_expiration_date("")
+    assert_equal 9, transaction.count
+  end
+
+  def test_find_all_by_result
+    transaction = Transaction.find_all_by_result("success")
+    assert_equal 9, transaction.count
+  end
+
+  def test_find_all_by_created_at
+    transaction = Transaction.find_all_by_created_at("2012-03-27 14:54:09 UTC")
+    assert_equal 2, transaction.count
+  end
+
+  def test_find_all_by_updated_at
+    transaction = Transaction.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
+    assert_equal 2, transaction.count
+  end
+
 end
+ 

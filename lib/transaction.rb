@@ -9,7 +9,7 @@ class Transaction
     @id = input["id"].to_i
     @invoice_id = input["invoice_id"].to_i
     @credit_card_number = input["credit_card_number"].to_i
-    @credit_card_expiration_date = input["credit_card_expiration_date"].to_i
+    @credit_card_expiration_date = input["credit_card_expiration_date"] || ""
     @result = input["result"].to_s
     @created_at = Time.parse(input["created_at"]).to_s
     @updated_at = Time.parse(input["updated_at"]).to_s
@@ -41,8 +41,8 @@ class Transaction
     collection.find{|transaction| transaction.credit_card_number == credit_card_number}
   end
 
-  def self.find_by_credit_card_expiration_date
-    collection.find{|transaction| transaction.credit_card_expiration_date == ""}
+  def self.find_by_credit_card_expiration_date(credit_card_expiration_date)
+    collection.find{|transaction| transaction.credit_card_expiration_date == credit_card_expiration_date}
   end
 
   def self.find_by_result(result)
@@ -71,8 +71,8 @@ class Transaction
     collection.select{|transaction| transaction.credit_card_number == credit_card_number}
   end
 
-  def self.find_all_by_credit_card_expiration_date
-    collection.select{|transaction| transaction.credit_card_expiration_date == ""}
+  def self.find_all_by_credit_card_expiration_date(credit_card_expiration_date)
+    collection.select{|transaction| transaction.credit_card_expiration_date == credit_card_expiration_date}
   end
 
   def self.find_all_by_result(result)
