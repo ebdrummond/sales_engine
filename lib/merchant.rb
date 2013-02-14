@@ -48,4 +48,12 @@ class Merchant
     collection.select{|merchant| merchant.name == name}
   end
 
+  def self.find_all_by_created_at(created_at)
+    collection.select{|merchant| merchant.created_at == created_at}
+  end
+
+  def self.find_all_by_updated_at(updated_at)
+    collection.select{|merchant| merchant.updated_at == updated_at}
+  end
+
 end

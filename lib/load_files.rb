@@ -72,19 +72,7 @@ end
 # LoadFiles.load_invoices_file
 # puts Invoice.all
 LoadFiles.load_merchants_file
-puts Merchant.find_by_id(3)
-puts
-puts Merchant.find_by_name("Klein, Rempel and Jones")
-puts
-puts Merchant.find_by_created_at("2012-03-27 14:53:59 UTC")
-puts
-puts Merchant.find_by_updated_at("2012-03-27 14:53:59 UTC")
-puts
-puts Merchant.find_all_by_id(8)
-puts
-puts Merchant.find_all_by_name("Williamson Group")
-puts
-puts
+
 # LoadFiles.load_items_file
 # puts Item.all
 # LoadFiles.load_customers_file
