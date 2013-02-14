@@ -95,11 +95,13 @@ puts Invoice.find_all_by_created_at("2012-03-25 09:54:09 UTC")
 puts
 puts Invoice.find_all_by_updated_at("2012-03-12 05:54:09 UTC")
 puts "\n********** Invoice Randoms **********"
-puts Invoice.random_id
+puts Invoice.random
+
+puts "\n************************************************************"
 
 puts "\n********** Merchant Find By **********"
 LoadFiles.load_merchants_file
-<<<<<<< HEAD
+
 puts Merchant.find_by_id(3)
 puts
 puts Merchant.find_by_name("Klein, Rempel and Jones")
@@ -112,9 +114,7 @@ puts Merchant.find_all_by_id(8)
 puts
 puts Merchant.find_all_by_name("Williamson Group")
 puts
-=======
 
->>>>>>> 705297af8a47449bfa342941f32d454da20154f0
 # LoadFiles.load_items_file
 # puts Item.all
 # LoadFiles.load_customers_file
