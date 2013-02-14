@@ -73,7 +73,7 @@ class Invoice
 
   def self.find_all_by_updated_at(updated_at)
     collection.select{|invoice| invoice.updated_at == updated_at}
-  end
+  end2
 # ***************************** Find Random *****************************
 
   def self.random_id
