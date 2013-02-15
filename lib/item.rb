@@ -8,8 +8,8 @@ class Item
 
   def initialize(input)
     @id = input["id"].to_i
-    @name = input["name"].to_s
-    @description = input["description"].to_s
+    @name = input["name"]
+    @description = input["description"]
     @unit_price = input["unit_price"].to_i
     @merchant_id = input["merchant_id"].to_i
     @created_at = Time.parse(input["created_at"]).to_s
