@@ -95,4 +95,5 @@ class ItemTest <MiniTest::Unit::TestCase
         item = Item.find_all_by_updated_at("2012-03-27 14:53:59 UTC")
         assert_equal 9, item.count
     end
+
 end
