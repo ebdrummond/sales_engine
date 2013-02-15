@@ -2,6 +2,7 @@ require 'csv'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/merchant'
+require './lib/item'
 
 class MerchantTest <MiniTest::Unit::TestCase
 
@@ -14,6 +15,16 @@ class MerchantTest <MiniTest::Unit::TestCase
     end
     Merchant.store(merchants)
   end
+
+  # def setup2
+  #   items_file = CSV.open("../data/test_items.csv", headers: true)
+  #   items = []
+
+  #   items_file.each do |row|
+  #     items << Item.new(row)
+  #   end
+  #   Item.store(items)
+  # end
 
   def test_create_merchant
     merchant = Merchant.new({"id" => 1, "name" => 2, "created_at" => "2012-03-25 09:54:09 UTC", "updated_at" =>"2012-03-25 09:54:09 UTC"})
@@ -65,6 +76,12 @@ class MerchantTest <MiniTest::Unit::TestCase
   def test_find_all_by_upload_at
     merchant = Merchant.find_all_by_updated_at("2012-03-27 14:53:59 UTC")
     assert_equal 8,merchant.count
+  end
+
+  def test_find_merchant_items
+    merchant_items = 
+    merchant.find_merchant_items(1)
+    assert_equal 1, merchant.id
   end
   
 end

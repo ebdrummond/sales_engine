@@ -9,7 +9,7 @@ class Invoice
     @id = input["id"].to_i
     @customer_id = input["customer_id"].to_i
     @merchant_id = input["merchant_id"].to_i
-    @status = input["status"].to_s
+    @status = input["status"]
     @created_at = Time.parse(input["created_at"]).to_s
     @updated_at = Time.parse(input["updated_at"]).to_s
   end

@@ -1,5 +1,6 @@
 require 'csv'
 require 'time'
+require_relative 'item'
 
 class Merchant
   attr_reader :id, :name, :created_at, :updated_at
@@ -58,6 +59,10 @@ class Merchant
 
   def self.random
     collection.sample
+  end
+
+  def find_merchant_items
+    Item.find_all_by_merchant_id(@id)
   end
 
 end
