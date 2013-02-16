@@ -69,5 +69,11 @@ class LoadFiles
   end
 end
 
-
-
+LoadFiles.load_items_file
+LoadFiles.load_merchants_file
+merchant = Merchant.find_by_id(1)
+puts merchant.items
+puts
+LoadFiles.load_invoices_file
+merchant = Merchant.find_by_id(27)
+puts merchant.invoices

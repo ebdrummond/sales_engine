@@ -61,8 +61,12 @@ class Merchant
     collection.sample
   end
 
-  def find_merchant_items
-    Item.find_all_by_merchant_id(@id)
+  def items
+    Item.find_all_by_merchant_id(id)
+  end
+
+  def invoices
+    Invoice.find_all_by_merchant_id(id)
   end
 
 end

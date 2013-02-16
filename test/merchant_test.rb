@@ -16,16 +16,6 @@ class MerchantTest <MiniTest::Unit::TestCase
     Merchant.store(merchants)
   end
 
-  # def setup2
-  #   items_file = CSV.open("../data/test_items.csv", headers: true)
-  #   items = []
-
-  #   items_file.each do |row|
-  #     items << Item.new(row)
-  #   end
-  #   Item.store(items)
-  # end
-
   def test_create_merchant
     merchant = Merchant.new({"id" => 1, "name" => 2, "created_at" => "2012-03-25 09:54:09 UTC", "updated_at" =>"2012-03-25 09:54:09 UTC"})
     assert_equal 1, merchant.id
@@ -79,9 +69,31 @@ class MerchantTest <MiniTest::Unit::TestCase
   end
 
   def test_find_merchant_items
-    merchant_items = 
-    merchant.find_merchant_items(1)
-    assert_equal 1, merchant.id
+    items_file = CSV.open("./data/test_items.csv", headers: true)
+    items = []
+
+    items_file.each do |row|
+      items << Item.new(row)
+    end
+    Item.store(items)
+
+    merchant = Merchant.find_by_id(1)
+    Item.find_all_by_merchant_id(1)
+    assert_equal 9, merchant.items.count
+  end
+
+  def test_find_merchant_invoices
+    invoices_file = CSV.open("./data/test_invoices.csv", headers: true)
+    invoices = []
+
+    invoices_file.each do |row|
+      invoices <<Invoice.new(row)
+    end
+    Invoice.store(invoices)
+
+    merchant = Merchant.find_by_id(27)
+    Invoice.find_all_by_merchant_id(27)
+    assert_equal 2, merchant.invoices.count
   end
   
 end
