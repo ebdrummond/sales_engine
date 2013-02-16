@@ -76,8 +76,11 @@ LoadFiles.load_invoice_items_file
 LoadFiles.load_transactions_file
 LoadFiles.load_customers_file
 
-invoice_items = InvoiceItem.find_by_invoice_id(2)
-puts invoice_items.invoice
-puts
-invoice_items = InvoiceItem.find_by_item_id(539)
-puts invoice_items.item
+# invoice_items = InvoiceItem.find_by_invoice_id(2)
+# puts invoice_items.invoice
+# puts
+# invoice_items = InvoiceItem.find_by_item_id(539)
+# puts invoice_items.item
+
+invoice = Invoice.find_by_id(1)
+puts invoice.items.count

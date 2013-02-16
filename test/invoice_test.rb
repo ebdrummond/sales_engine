@@ -113,27 +113,27 @@ class InvoicesTest <MiniTest::Unit::TestCase
     assert_equal 8, invoice.invoice_items.count
   end
 
-  # def test_finds_invoice_items    
-  #   invoice_items_file = CSV.open("./data/invoice_items.csv", headers: true)
-  #     invoice_items = []
+  def test_finds_invoice_items    
+    invoice_items_file = CSV.open("./data/test_invoice_items.csv", headers: true)
+      invoice_items = []
 
-  #   invoice_items_file.each do |row|
-  #       invoice_items << InvoiceItem.new(row)
-  #   end
-  #   InvoiceItem.store(invoice_items)
+    invoice_items_file.each do |row|
+        invoice_items << InvoiceItem.new(row)
+    end
+    InvoiceItem.store(invoice_items)
 
-  #   items_file = CSV.open("./data/items.csv", headers: true)
-  #     items = []
+    items_file = CSV.open("./data/test_items.csv", headers: true)
+      items = []
 
-  #   items_file.each do |row|
-  #       items << Item.new(row)
-  #   end
-  #   Item.store(items)
+    items_file.each do |row|
+        items << Item.new(row)
+    end
+    Item.store(items)
 
-  #   invoice = Invoice.find_by_id(1)
-  #   invoice.items
-  #   assert_equal 8, invoice.items.count
-  # end
+    invoice = Invoice.find_by_id(1)
+    invoice.items
+    assert_equal 2, invoice.items.count
+  end
 
   def test_finds_customer_instance
     customers_file = CSV.open("./data/test_customers.csv", headers: true)

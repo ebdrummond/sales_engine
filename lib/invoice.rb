@@ -88,11 +88,9 @@ class Invoice
     InvoiceItem.find_all_by_invoice_id(id)
   end
 
-  # def items
-  #   InvoiceItem.find_all_by_invoice_id(id)
-  #   InvoiceItem.
-  #   Item.find_all_by_id
-  # end
+  def items
+    invoice_items.collect{|invoice_item| invoice_item.item}
+  end
 
   def customer
     Customer.find_by_id(customer_id)
