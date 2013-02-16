@@ -68,7 +68,7 @@ class MerchantTest <MiniTest::Unit::TestCase
     assert_equal 8,merchant.count
   end
 
-  def test_find_merchant_items
+  def test_finds_merchant_items
     items_file = CSV.open("./data/test_items.csv", headers: true)
     items = []
 
@@ -82,7 +82,7 @@ class MerchantTest <MiniTest::Unit::TestCase
     assert_equal 9, merchant.items.count
   end
 
-  def test_find_merchant_invoices
+  def test_finds_merchant_invoices
     invoices_file = CSV.open("./data/test_invoices.csv", headers: true)
     invoices = []
 

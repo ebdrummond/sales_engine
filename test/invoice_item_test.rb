@@ -95,4 +95,32 @@ class Invoice_Item_Test < MiniTest::Unit::TestCase
     invoice_item = InvoiceItem.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
     assert_equal 9, invoice_item.count
   end
+
+  def test_finds_invoice_item_invoice
+    invoices_file = CSV.open("./data/test_invoices.csv", headers: true)
+      invoices = []
+
+    invoices_file.each do |row|
+      invoices << Invoice.new(row)
+    end
+    Invoice.store(invoices)
+
+    invoice_items = InvoiceItem.find_by_invoice_id(1)
+    invoice_items.invoice
+    assert_equal 26, invoice_items.invoice.merchant_id
+  end
+
+  def test_finds_invoice_item_item
+    items_file = CSV.open("./data/test_items.csv", headers: true)
+      items = []
+
+    items_file.each do |row|
+      items << Item.new(row)
+    end
+    Item.store(items)
+
+    invoice_items = InvoiceItem.find_by_item_id(539)
+    invoice_items.item
+    assert_equal "Item Expedita Fuga", invoice_items.item.name
+  end
 end
