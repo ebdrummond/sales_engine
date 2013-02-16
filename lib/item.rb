@@ -94,9 +94,12 @@ class Item
     collection.sample
   end
 
-  def find_merchant_items(merchant_id)
-    find_all_by_merchant_id
-    collection.select{|item| item.merchant_id}
+  def merchant
+    Merchant.find_by_id(merchant_id)
+  end
+
+  def invoice_items
+    InvoiceItem.find_all_by_item_id(id)
   end
 
 end

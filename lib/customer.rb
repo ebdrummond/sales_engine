@@ -1,5 +1,6 @@
 require 'csv'
 require 'time'
+require_relative 'invoice'
 
 
 class Customer
@@ -69,4 +70,8 @@ class Customer
     collection.sample
   end
 
+  def invoices
+    Invoice.find_all_by_customer_id(id)
+  end
+ 
 end

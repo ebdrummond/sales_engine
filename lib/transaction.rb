@@ -93,5 +93,8 @@ class Transaction
     collection.sample
   end
 
+  def invoice
+    Invoice.find_by_id(invoice_id)
+  end
 
 end

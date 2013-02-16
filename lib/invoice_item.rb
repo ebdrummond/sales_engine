@@ -87,4 +87,12 @@ class InvoiceItem
     collection.sample
   end
 
+  def item
+    Item.find_by_id(id)
+  end
+
+  def invoice
+    Invoice.find_by_id(invoice_id)
+  end
+
 end

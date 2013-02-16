@@ -69,11 +69,48 @@ class LoadFiles
   end
 end
 
-LoadFiles.load_items_file
 LoadFiles.load_merchants_file
-merchant = Merchant.find_by_id(1)
+LoadFiles.load_items_file
+LoadFiles.load_invoices_file
+LoadFiles.load_customers_file
+LoadFiles.load_transactions_file
+LoadFiles.load_invoice_items_file
+puts
+merchant = Merchant.find_by_id(8)
 puts merchant.items
 puts
-LoadFiles.load_invoices_file
 merchant = Merchant.find_by_id(27)
 puts merchant.invoices
+puts "******* Rel 12 *******"
+customer = Customer.find_by_id(1)
+puts
+puts customer.invoices
+puts "******* Rel 11 *******"
+transaction = Transaction.find_by_invoice_id(5)
+puts transaction.invoice
+puts "******* Rel 10 *******"
+item = Item.find_by_merchant_id(1)
+puts item.merchant
+puts "******* Rel 9 *******"
+item = Item.find_by_id(1)
+puts item.invoice_items
+puts "******* Rel 8 *******"
+invoice_item = InvoiceItem.find_by_item_id(1)
+puts invoice_item.item
+puts "******* Rel 7 *******"
+invoice_item = InvoiceItem.find_by_invoice_id(5)
+puts invoice_item.invoice
+puts "******* Rel 6 *******"
+invoice = Invoice.find_by_customer_id(1)
+puts invoice.customer
+
+
+
+
+
+
+
+
+
+
+
