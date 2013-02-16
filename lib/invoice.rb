@@ -80,6 +80,24 @@ class Invoice
     collection.sample
   end
 
+  def transactions
+    Transaction.find_all_by_invoice_id(id)
+  end
+
+  def invoice_items
+    InvoiceItem.find_all_by_invoice_id(id)
+  end
+
+  # def items
+  #   InvoiceItem.find_all_by_invoice_id(id)
+  #   InvoiceItem.
+  #   Item.find_all_by_id
+  # end
+
+  def customer
+    Customer.find_by_id(customer_id)
+  end
+
 end
 
 

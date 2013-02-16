@@ -71,9 +71,13 @@ end
 
 LoadFiles.load_items_file
 LoadFiles.load_merchants_file
-merchant = Merchant.find_by_id(1)
-puts merchant.items
-puts
 LoadFiles.load_invoices_file
-merchant = Merchant.find_by_id(27)
-puts merchant.invoices
+LoadFiles.load_invoice_items_file
+LoadFiles.load_transactions_file
+LoadFiles.load_customers_file
+
+invoice_items = InvoiceItem.find_by_invoice_id(2)
+puts invoice_items.invoice
+puts
+invoice_items = InvoiceItem.find_by_item_id(539)
+puts invoice_items.item

@@ -84,4 +84,72 @@ class InvoicesTest <MiniTest::Unit::TestCase
     invoice = Invoice.find_all_by_updated_at("2012-03-10 05:54:09 UTC")
     assert_equal 2, invoice.count
   end
+
+  def test_finds_invoice_transactions
+  transactions_file = CSV.open("./data/test_transactions.csv", headers: true)
+    transactions = []
+
+    transactions_file.each do |row|
+      transactions << Transaction.new(row)
+    end
+    Transaction.store(transactions)
+
+    invoice = Invoice.find_by_id(1)
+    invoice.transactions
+    assert_equal 1, invoice.transactions.count
+  end
+
+  def test_finds_invoice_invoice_items
+    invoice_items_file = CSV.open("./data/test_invoice_items.csv", headers: true)
+      invoice_items = []
+
+    invoice_items_file.each do |row|
+        invoice_items << InvoiceItem.new(row)
+    end
+    InvoiceItem.store(invoice_items)
+
+    invoice = Invoice.find_by_id(1)
+    invoice.invoice_items
+    assert_equal 8, invoice.invoice_items.count
+  end
+
+  # def test_finds_invoice_items    
+  #   invoice_items_file = CSV.open("./data/invoice_items.csv", headers: true)
+  #     invoice_items = []
+
+  #   invoice_items_file.each do |row|
+  #       invoice_items << InvoiceItem.new(row)
+  #   end
+  #   InvoiceItem.store(invoice_items)
+
+  #   items_file = CSV.open("./data/items.csv", headers: true)
+  #     items = []
+
+  #   items_file.each do |row|
+  #       items << Item.new(row)
+  #   end
+  #   Item.store(items)
+
+  #   invoice = Invoice.find_by_id(1)
+  #   invoice.items
+  #   assert_equal 8, invoice.items.count
+  # end
+
+  def test_finds_customer_instance
+    customers_file = CSV.open("./data/test_customers.csv", headers: true)
+      customers = []
+
+    customers_file.each do |row|
+      customers << Customer.new(row)
+    end
+    Customer.store(customers)
+
+  invoice = Invoice.find_by_customer_id(2)
+  invoice.customer
+  assert_equal "Fadel", invoice.customer.last_name
+end
+
+
+
+
 end

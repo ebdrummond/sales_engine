@@ -96,4 +96,17 @@ class ItemTest <MiniTest::Unit::TestCase
         assert_equal 9, item.count
     end
 
+    def test_finds_item_invoice_items
+        invoice_items_file = CSV.open("./data/invoice_items.csv", headers: true)
+            invoice_items = []
+
+         invoice_items_file.each do |row|
+            invoice_items << InvoiceItem.new(row)
+        end
+        InvoiceItem.store(invoice_items)
+
+        item = Item.find_by_invoice_item_id()
+        item.invoice_items
+        assert_equal
+
 end

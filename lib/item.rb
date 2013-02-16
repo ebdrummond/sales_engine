@@ -94,9 +94,4 @@ class Item
     collection.sample
   end
 
-  def find_merchant_items(merchant_id)
-    find_all_by_merchant_id
-    collection.select{|item| item.merchant_id}
-  end
-
 end
