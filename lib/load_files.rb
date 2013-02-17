@@ -70,7 +70,6 @@ class LoadFiles
 end
 
 LoadFiles.load_merchants_file
-<<<<<<< HEAD
 LoadFiles.load_items_file
 LoadFiles.load_invoices_file
 LoadFiles.load_customers_file
@@ -105,28 +104,3 @@ puts "******* Rel 6 *******"
 invoice = Invoice.find_by_customer_id(1)
 puts invoice.customer
 
-
-
-
-
-
-
-
-
-
-
-=======
-LoadFiles.load_invoices_file
-LoadFiles.load_invoice_items_file
-LoadFiles.load_transactions_file
-LoadFiles.load_customers_file
-
-# invoice_items = InvoiceItem.find_by_invoice_id(2)
-# puts invoice_items.invoice
-# puts
-# invoice_items = InvoiceItem.find_by_item_id(539)
-# puts invoice_items.item
-
-invoice = Invoice.find_by_id(1)
-puts invoice.items.count
->>>>>>> 9688f5a23d5e06bc7027d2429627e5b4ce478ca9

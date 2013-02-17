@@ -94,7 +94,6 @@ class Item
     collection.sample
   end
 
-<<<<<<< HEAD
   def merchant
     Merchant.find_by_id(merchant_id)
   end
@@ -102,7 +101,4 @@ class Item
   def invoice_items
     InvoiceItem.find_all_by_item_id(id)
   end
-
-=======
->>>>>>> 9688f5a23d5e06bc7027d2429627e5b4ce478ca9
 end

@@ -87,22 +87,11 @@ class InvoiceItem
     collection.sample
   end
 
-<<<<<<< HEAD
-  def item
-    Item.find_by_id(id)
-  end
-
-=======
->>>>>>> 9688f5a23d5e06bc7027d2429627e5b4ce478ca9
   def invoice
     Invoice.find_by_id(invoice_id)
   end
 
-<<<<<<< HEAD
-=======
   def item
     Item.find_by_id(item_id)
   end
-
->>>>>>> 9688f5a23d5e06bc7027d2429627e5b4ce478ca9
 end

@@ -62,7 +62,7 @@ class Merchant
   end
 
   def items
-    Item.find_all_by_id(id)
+    Item.find_all_by_merchant_id(id)
   end
 
   def invoices
