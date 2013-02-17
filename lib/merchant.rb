@@ -1,5 +1,6 @@
 require 'csv'
 require 'time'
+require 'bigdecimal'
 require_relative 'item'
 
 class Merchant
@@ -69,4 +70,38 @@ class Merchant
     Invoice.find_all_by_merchant_id(id)
   end
 
+  def revenue
+    grand_total = 0
+    invoices.each do |invoice|
+      if invoice.valid_transaction.count > 0
+        invoice.invoice_items.each do |invoice_item|
+          grand_total = invoice_item.quantity * invoice_item.unit_price + grand_total
+        end
+      end
+    end
+    grand_total
+    # puts BigDecimal.new(grand_total.to_s)
+  end
+
+  def self.most_revenue(number)
+    highest_earners = collection.sort_by{|merchant| merchant.revenue}
+    highest_earners[0..number-1]
+  end
+
+
+  # def self.most_revenue(number)
+  #   successful_transactions = Transaction.find_all_by_result("success")
+  #   successful_invoices = []
+  #   successful_transactions.each do |transaction|
+  #     successful_invoices<< transaction.invoice
+  #   end
+
+  #   invoice_items_list = []
+  #   successful_invoices.each do |invoice|
+  #     invoice_items_list<< invoice.invoice_items
+  #   end
+
+  # end
 end
+
+
