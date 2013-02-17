@@ -6,7 +6,7 @@ require './lib/item'
 class ItemTest <MiniTest::Unit::TestCase
 
     def setup
-        items_file = CSV.open("./data/test_items.csv", headers: true)
+        items_file = CSV.open("./data/items.csv", headers: true)
         items = []
 
         items_file.each do |row|
@@ -63,37 +63,37 @@ class ItemTest <MiniTest::Unit::TestCase
 
     def test_finds_all_items_by_id
         item = Item.find_all_by_id(8)
-        assert_equal 2, item.count
+        assert_equal 1, item.count
     end
 
     def test_finds_all_items_by_name
         item = Item.find_all_by_name("Item Est Consequuntur")
-        assert_equal 2, item.count
+        assert_equal 1, item.count
     end
 
     def test_finds_all_items_by_description
         item = Item.find_all_by_description("Culpa deleniti adipisci voluptates aut. Sed eum quisquam nisi. Voluptatem est rerum est qui id reprehenderit. Molestiae laudantium non velit alias. Ipsa consequatur modi quibusdam.")
-        assert_equal 2, item.count
+        assert_equal 1, item.count
     end
 
     def test_finds_all_items_by_unit_price
         item = Item.find_all_by_unit_price(22582)
-        assert_equal 2, item.count
+        assert_equal 1, item.count
     end
 
     def test_finds_all_items_by_merchant_id
         item = Item.find_all_by_merchant_id(1)
-        assert_equal 9, item.count
+        assert_equal 15, item.count
     end
 
     def test_finds_all_by_created_at
         item = Item.find_all_by_created_at("2012-03-27 14:53:59 UTC")
-        assert_equal 9, item.count
+        assert_equal 170, item.count
     end
 
     def test_finds_all_by_updated_at
         item = Item.find_all_by_updated_at("2012-03-27 14:53:59 UTC")
-        assert_equal 9, item.count
+        assert_equal 170, item.count
     end
 
 end

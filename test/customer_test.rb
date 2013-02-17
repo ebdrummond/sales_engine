@@ -6,7 +6,7 @@ require './lib/customer'
 class CustomerTest <MiniTest::Unit::TestCase
 
   def setup
-    customers_file = CSV.open("./data/test_customers.csv", headers: true)
+    customers_file = CSV.open("./data/customers.csv", headers: true)
     customers = []
 
     customers_file.each do |row|
@@ -50,18 +50,18 @@ class CustomerTest <MiniTest::Unit::TestCase
   end
 
   def test_finds_all_customers_by_id
-    customer = Customer.find_all_by_id(8)
-    assert_equal 3, customer.count
+    customer = Customer.find_all_by_id(29)
+    assert_equal 1, customer.count
   end
 
-  def test_finds_all_customers_by_find_name
-    customer = Customer.find_all_by_first_name("Heber")
+  def test_finds_all_customers_by_first_name
+    customer = Customer.find_all_by_first_name("Brent")
     assert_equal 2, customer.count
   end
 
   def test_finds_all_customers_by_last_name
-    customer = Customer.find_all_by_last_name("Fadel")
-    assert_equal 2, customer.count
+    customer = Customer.find_all_by_last_name("Brekke")
+    assert_equal 6, customer.count
   end
 
   def test_finds_all_customers_by_created_at
@@ -71,6 +71,6 @@ class CustomerTest <MiniTest::Unit::TestCase
 
   def test_finds_all_customers_by_updated_at
     customer = Customer.find_all_by_updated_at("2012-03-27 14:54:11 UTC")
-    assert_equal 2, customer.count
+    assert_equal 3, customer.count
   end
 end

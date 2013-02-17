@@ -6,7 +6,7 @@ require './lib/invoice'
 class InvoicesTest <MiniTest::Unit::TestCase
 
   def setup
-    invoices_file = CSV.open("./data/test_invoices.csv", headers: true)
+    invoices_file = CSV.open("./data/invoices.csv", headers: true)
     invoices = []
 
     invoices_file.each do |row|
@@ -57,7 +57,7 @@ class InvoicesTest <MiniTest::Unit::TestCase
 
   def test_finds_all_invoices_by_id
     invoice = Invoice.find_all_by_id(8)
-    assert_equal 2, invoice.count
+    assert_equal 1, invoice.count
   end
 
   def test_finds_all_invoices_by_customer_id
@@ -67,26 +67,26 @@ class InvoicesTest <MiniTest::Unit::TestCase
 
   def test_finds_all_invoices_by_merchant_id
     invoice = Invoice.find_all_by_merchant_id(27)
-    assert_equal 2, invoice.count
+    assert_equal 48, invoice.count
   end
 
   def test_finds_all_invoices_by_status
     invoice = Invoice.find_all_by_status("shipped")
-    assert_equal 9, invoice.count
+    assert_equal 4843, invoice.count
   end
 
   def test_finds_all_invoices_by_created_at
-    invoice = Invoice.find_all_by_created_at("2012-03-10 05:54:09 UTC")
-    assert_equal 2, invoice.count
+    invoice = Invoice.find_all_by_created_at("2012-03-12 05:54:09 UTC")
+    assert_equal 1, invoice.count
   end
 
   def test_finds_all_invoices_by_updated_at
-    invoice = Invoice.find_all_by_updated_at("2012-03-10 05:54:09 UTC")
-    assert_equal 2, invoice.count
+    invoice = Invoice.find_all_by_updated_at("2012-03-07 04:54:20 UTC")
+    assert_equal 1, invoice.count
   end
 
   def test_finds_invoice_transactions
-  transactions_file = CSV.open("./data/test_transactions.csv", headers: true)
+  transactions_file = CSV.open("./data/transactions.csv", headers: true)
     transactions = []
 
     transactions_file.each do |row|
@@ -100,7 +100,7 @@ class InvoicesTest <MiniTest::Unit::TestCase
   end
 
   def test_finds_invoice_invoice_items
-    invoice_items_file = CSV.open("./data/test_invoice_items.csv", headers: true)
+    invoice_items_file = CSV.open("./data/invoice_items.csv", headers: true)
       invoice_items = []
 
     invoice_items_file.each do |row|
@@ -114,7 +114,7 @@ class InvoicesTest <MiniTest::Unit::TestCase
   end
 
   def test_finds_invoice_items    
-    invoice_items_file = CSV.open("./data/test_invoice_items.csv", headers: true)
+    invoice_items_file = CSV.open("./data/invoice_items.csv", headers: true)
       invoice_items = []
 
     invoice_items_file.each do |row|
@@ -122,7 +122,7 @@ class InvoicesTest <MiniTest::Unit::TestCase
     end
     InvoiceItem.store(invoice_items)
 
-    items_file = CSV.open("./data/test_items.csv", headers: true)
+    items_file = CSV.open("./data/items.csv", headers: true)
       items = []
 
     items_file.each do |row|
@@ -132,11 +132,11 @@ class InvoicesTest <MiniTest::Unit::TestCase
 
     invoice = Invoice.find_by_id(1)
     invoice.items
-    assert_equal 2, invoice.items.count
+    assert_equal 8, invoice.items.count
   end
 
   def test_finds_customer_instance
-    customers_file = CSV.open("./data/test_customers.csv", headers: true)
+    customers_file = CSV.open("./data/customers.csv", headers: true)
       customers = []
 
     customers_file.each do |row|
@@ -146,7 +146,7 @@ class InvoicesTest <MiniTest::Unit::TestCase
 
   invoice = Invoice.find_by_customer_id(2)
   invoice.customer
-  assert_equal "Fadel", invoice.customer.last_name
+  assert_equal "Osinski", invoice.customer.last_name
 end
 
 

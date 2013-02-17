@@ -6,7 +6,7 @@ require './lib/invoice_item'
 class Invoice_Item_Test < MiniTest::Unit::TestCase
 
   def setup
-    invoice_items_file = CSV.open("./data/test_invoice_items.csv", headers: true)
+    invoice_items_file = CSV.open("./data/invoice_items.csv", headers: true)
     invoice_items = []
 
     invoice_items_file.each do |row|
@@ -63,12 +63,12 @@ class Invoice_Item_Test < MiniTest::Unit::TestCase
 
   def test_finds_all_invoice_items_by_id
     invoice_item = InvoiceItem.find_all_by_id(8)
-    assert_equal 2, invoice_item.count
+    assert_equal 1, invoice_item.count
   end
 
   def test_finds_all_invoice_items_by_item_id
-    invoice_item = InvoiceItem.find_all_by_item_id(535)
-    assert_equal 2, invoice_item.count
+    invoice_item = InvoiceItem.find_all_by_item_id(2443)
+    assert_equal 9, invoice_item.count
   end
 
   def test_finds_all_invoice_items_by_invoice_id
@@ -78,26 +78,26 @@ class Invoice_Item_Test < MiniTest::Unit::TestCase
 
   def test_finds_all_invoice_items_by_quantity
     invoice_item = InvoiceItem.find_all_by_quantity(6)
-    assert_equal 2, invoice_item.count
+    assert_equal 2116, invoice_item.count
   end
 
   def test_finds_all_invoice_items_by_unit_price
     invoice_item = InvoiceItem.find_all_by_unit_price(29973)
-    assert_equal 2, invoice_item.count
+    assert_equal 4, invoice_item.count
   end
 
   def test_finds_all_invoice_items_by_created_at
     invoice_item = InvoiceItem.find_all_by_created_at("2012-03-27 14:54:09 UTC")
-    assert_equal 9, invoice_item.count
+    assert_equal 15, invoice_item.count
   end
 
   def test_finds_all_invoice_items_by_updated_at
     invoice_item = InvoiceItem.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
-    assert_equal 9, invoice_item.count
+    assert_equal 15, invoice_item.count
   end
 
   def test_finds_invoice_item_invoice
-    invoices_file = CSV.open("./data/test_invoices.csv", headers: true)
+    invoices_file = CSV.open("./data/invoices.csv", headers: true)
       invoices = []
 
     invoices_file.each do |row|
@@ -111,7 +111,7 @@ class Invoice_Item_Test < MiniTest::Unit::TestCase
   end
 
   def test_finds_invoice_item_item
-    items_file = CSV.open("./data/test_items.csv", headers: true)
+    items_file = CSV.open("./data/items.csv", headers: true)
       items = []
 
     items_file.each do |row|
@@ -121,6 +121,6 @@ class Invoice_Item_Test < MiniTest::Unit::TestCase
 
     invoice_items = InvoiceItem.find_by_item_id(539)
     invoice_items.item
-    assert_equal "Item Expedita Fuga", invoice_items.item.name
+    assert_equal "Item Sunt Saepe", invoice_items.item.name
   end
 end

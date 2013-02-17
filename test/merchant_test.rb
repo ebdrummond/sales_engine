@@ -2,12 +2,11 @@ require 'csv'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/merchant'
-require './lib/item'
 
 class MerchantTest <MiniTest::Unit::TestCase
 
   def setup
-    merchants_file = CSV.open("./data/test_merchants.csv", headers: true)
+    merchants_file = CSV.open("./data/merchants.csv", headers: true)
     merchants = []
 
     merchants_file.each do |row|
@@ -69,7 +68,7 @@ class MerchantTest <MiniTest::Unit::TestCase
   end
 
   def test_finds_merchant_items
-    items_file = CSV.open("./data/test_items.csv", headers: true)
+    items_file = CSV.open("./data/items.csv", headers: true)
     items = []
 
     items_file.each do |row|
@@ -79,11 +78,11 @@ class MerchantTest <MiniTest::Unit::TestCase
 
     merchant = Merchant.find_by_id(1)
     Item.find_all_by_merchant_id(1)
-    assert_equal 9, merchant.items.count
+    assert_equal 15, merchant.items.count
   end
 
   def test_finds_merchant_invoices
-    invoices_file = CSV.open("./data/test_invoices.csv", headers: true)
+    invoices_file = CSV.open("./data/invoices.csv", headers: true)
     invoices = []
 
     invoices_file.each do |row|
@@ -91,9 +90,9 @@ class MerchantTest <MiniTest::Unit::TestCase
     end
     Invoice.store(invoices)
 
-    merchant = Merchant.find_by_id(27)
-    Invoice.find_all_by_merchant_id(27)
-    assert_equal 2, merchant.invoices.count
+    merchant = Merchant.find_by_id(29)
+    Invoice.find_all_by_merchant_id(29)
+    assert_equal 49, merchant.invoices.count
   end
   
 end

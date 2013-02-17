@@ -2,12 +2,11 @@ require 'csv'
 require 'minitest/autorun'
 require 'minitest/emoji'
 require './lib/transaction'
-# require './lib/load_files'
  
 class TransactionTest <MiniTest::Unit::TestCase
 
   def setup
-    transactions_file = CSV.open("./data/test_transactions.csv", headers: true)
+    transactions_file = CSV.open("./data/transactions.csv", headers: true)
     transactions= []
 
     transactions_file.each do |row|
@@ -77,12 +76,12 @@ class TransactionTest <MiniTest::Unit::TestCase
 
   def test_find_all_by_credit_card_expiration_date
     transaction = Transaction.find_all_by_credit_card_expiration_date("")
-    assert_equal 9, transaction.count
+    assert_equal 5595, transaction.count
   end
 
   def test_find_all_by_result
     transaction = Transaction.find_all_by_result("success")
-    assert_equal 9, transaction.count
+    assert_equal 4648, transaction.count
   end
 
   def test_find_all_by_created_at
