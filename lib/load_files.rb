@@ -120,7 +120,8 @@ LoadFiles.load_invoice_items_file
 #   merchant = Merchant.find_by_id(6)
 #  puts merchant.revenue
 
-merchant = Merchant.find_by_id(29)
-puts merchant.revenue("2012-03-22")
+# merchant = Merchant.find_by_id(29)
+# puts merchant.revenue("2012-03-22")
 
 
+# puts Merchant.revenue("2012-03-08")

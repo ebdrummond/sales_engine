@@ -94,6 +94,11 @@ class Merchant
     grand_total
   end
 
+  def self.revenue(date)
+    revenue_for_date = collection.collect{|merchant| merchant.revenue(date)}
+    revenue_for_date.inject(0){|sum, revenue| sum + revenue}
+  end
+
   def self.most_revenue(number)
     highest_earners = collection.sort_by{|merchant| merchant.revenue}
     highest_earners.reverse[0..number-1]
