@@ -144,11 +144,24 @@ class InvoicesTest <MiniTest::Unit::TestCase
     end
     Customer.store(customers)
 
-  invoice = Invoice.find_by_customer_id(2)
-  invoice.customer
-  assert_equal "Osinski", invoice.customer.last_name
-end
+    invoice = Invoice.find_by_customer_id(2)
+    invoice.customer
+    assert_equal "Osinski", invoice.customer.last_name
+  end
 
+  def test_returns_only_invoices_with_valid_transactions
+    transactions_file = CSV.open("./data/transactions.csv", headers: true)
+      transactions = []
+
+    transactions_file.each do |row|
+      transactions << Transaction.new(row)
+    end
+    Transaction.store(transactions)
+
+    invoice = Invoice.find_by_id(29)
+    invoice.valid_transaction
+    assert_equal 1, invoice.valid_transaction.count
+  end
 
 
 

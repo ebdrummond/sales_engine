@@ -104,6 +104,20 @@ LoadFiles.load_invoice_items_file
 # invoice = Invoice.find_by_customer_id(1)
 # puts invoice.customer
 
-puts Merchant.most_revenue(10)
+# puts Merchant.most_revenue(10)
+
+ # merchant = Merchant.find_by_id(29)
+ #   puts merchant.revenue
+
+#  puts Merchant.most_revenue(100)
+# puts
+ merchant = Merchant.find_by_id(14)
+ puts merchant.revenue
+puts 
+ merchant = Merchant.find_by_id(84)
+ puts merchant.revenue
+ puts
+  merchant = Merchant.find_by_id(6)
+ puts merchant.revenue
 
 

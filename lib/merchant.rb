@@ -80,28 +80,29 @@ class Merchant
       end
     end
     grand_total
-    # puts BigDecimal.new(grand_total.to_s)
   end
 
   def self.most_revenue(number)
     highest_earners = collection.sort_by{|merchant| merchant.revenue}
-    highest_earners[0..number-1]
+    highest_earners.reverse[0..number-1]
   end
 
+  def item_count
+    grand_total = 0
+    invoices.each do |invoice|
+      if invoice.valid_transaction.count > 0
+        invoice.invoice_items.each do |invoice_item|
+        grand_total = invoice_item.quantity + grand_total
+        end
+      end
+    end
+    grand_total
+  end
 
-  # def self.most_revenue(number)
-  #   successful_transactions = Transaction.find_all_by_result("success")
-  #   successful_invoices = []
-  #   successful_transactions.each do |transaction|
-  #     successful_invoices<< transaction.invoice
-  #   end
-
-  #   invoice_items_list = []
-  #   successful_invoices.each do |invoice|
-  #     invoice_items_list<< invoice.invoice_items
-  #   end
-
-  # end
+  def self.most_items(number)
+    highest_sellers = collection.sort_by{|merchant| merchant.item_count}
+    highest_sellers.reverse[0..number-1]
+  end
 end
 
 

@@ -2,6 +2,7 @@ require 'csv'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/merchant'
+require './lib/invoice'
 
 class MerchantTest <MiniTest::Unit::TestCase
 
@@ -93,6 +94,36 @@ class MerchantTest <MiniTest::Unit::TestCase
     merchant = Merchant.find_by_id(29)
     Invoice.find_all_by_merchant_id(29)
     assert_equal 49, merchant.invoices.count
+  end
+
+  def test_finds_all_revenue_associated_with_merchant
+    invoices_file = CSV.open("./data/invoices.csv", headers: true)
+    invoices = []
+
+    invoices_file.each do |row|
+      invoices <<Invoice.new(row)
+    end
+    Invoice.store(invoices)
+
+    transactions_file = CSV.open("./data/invoices.csv", headers: true)
+    transactions = []
+
+    transactions_file.each do |row|
+      transactions <<Transaction.new(row)
+    end
+    Transaction.store(transactions)
+
+    invoice_items_file = CSV.open("./data/invoice_items.csv", headers: true)
+      invoice_items = []
+
+    invoice_items_file.each do |row|
+        invoice_items << InvoiceItem.new(row)
+    end
+    InvoiceItem.store(invoice_items)
+
+    merchant = Merchant.find_by_id(29)
+    revenue = merchant.revenue
+    assert_equal 67947368, revenue
   end
   
 end
