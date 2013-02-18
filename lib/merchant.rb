@@ -82,6 +82,18 @@ class Merchant
     grand_total
   end
 
+  def revenue(date)
+    grand_total = 0
+    invoices.each do |invoice|
+      if invoice.valid_transaction.count > 0 && invoice.created_at.include?(date)
+        invoice.invoice_items.each do |invoice_item|
+          grand_total = invoice_item.quantity * invoice_item.unit_price + grand_total
+        end
+      end
+    end
+    grand_total
+  end
+
   def self.most_revenue(number)
     highest_earners = collection.sort_by{|merchant| merchant.revenue}
     highest_earners.reverse[0..number-1]

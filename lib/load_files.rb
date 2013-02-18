@@ -111,13 +111,16 @@ LoadFiles.load_invoice_items_file
 
 #  puts Merchant.most_revenue(100)
 # puts
- merchant = Merchant.find_by_id(14)
- puts merchant.revenue
-puts 
- merchant = Merchant.find_by_id(84)
- puts merchant.revenue
- puts
-  merchant = Merchant.find_by_id(6)
- puts merchant.revenue
+#  merchant = Merchant.find_by_id(14)
+#  puts merchant.revenue
+# puts 
+#  merchant = Merchant.find_by_id(84)
+#  puts merchant.revenue
+#  puts
+#   merchant = Merchant.find_by_id(6)
+#  puts merchant.revenue
+
+merchant = Merchant.find_by_id(29)
+puts merchant.revenue("2012-03-22")
 
 
