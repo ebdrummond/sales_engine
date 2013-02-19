@@ -153,3 +153,17 @@ LoadFiles.load_invoice_items_file
 # puts
 # item = Item.find_by_id(848)
 # puts item.revenue
+
+puts Item.most_items(20)
+puts
+puts
+puts
+puts
+item = Item.find_by_id(227)
+puts item.item_count
+puts
+item = Item.find_by_id(2174)
+puts item.item_count
+puts
+item = Item.find_by_id(1396)
+puts item.item_count

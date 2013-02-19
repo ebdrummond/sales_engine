@@ -124,4 +124,21 @@ class Item
     highest_earners = collection.sort_by{|item| item.revenue}
     highest_earners.reverse[0..number-1]
   end
+
+  def item_count
+    grand_total = 0
+      invoices.each do |invoice|
+      if invoice.paid?
+        invoice.invoice_items.each do |invoice_item|
+        grand_total = invoice_item.quantity + grand_total
+        end
+      end
+    end
+    grand_total
+  end
+
+  def self.most_items(number)
+    highest_sellers = collection.sort_by{|item| item.item_count}
+    highest_sellers.reverse[0..number-1]
+  end
 end
