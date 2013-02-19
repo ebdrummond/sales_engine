@@ -101,4 +101,27 @@ class Item
   def invoice_items
     InvoiceItem.find_all_by_item_id(id)
   end
+
+  def invoices
+    invoices = []
+    invoice_items.each do |invoice_item|
+      invoices << invoice_item.invoice
+    end
+    invoices
+  end
+
+  def revenue
+    grand_total = 0
+    invoices.each do |invoice|
+      if invoice.paid?
+        grand_total = grand_total + invoice.total
+        end
+      end
+    grand_total
+  end
+
+  def self.most_revenue(number)
+    highest_earners = collection.sort_by{|item| item.revenue}
+    highest_earners.reverse[0..number-1]
+  end
 end

@@ -77,14 +77,13 @@ class Merchant
         grand_total = grand_total + invoice.total
         end
       end
-    end
     grand_total
   end
 
   def revenue(date)
     grand_total = 0
     invoices.each do |invoice|
-      if invoice.paid?
+      if invoice.paid? && invoice.created_at.include?(date)
         grand_total = grand_total + invoice.total
       end
     end
@@ -104,7 +103,7 @@ class Merchant
   def item_count
     grand_total = 0
     invoices.each do |invoice|
-      if invoice.valid_transaction.count > 0
+      if invoice.paid?
         invoice.invoice_items.each do |invoice_item|
         grand_total = invoice_item.quantity + grand_total
         end
@@ -118,15 +117,26 @@ class Merchant
     highest_sellers.reverse[0..number-1]
   end
 
-  def successful_transactions
-    successful_invoices = invoices.select{|invoice| invoice.valid_transaction}
-
-    successful_invoices
-    # invoices.each do |invoice|
-    #   if invoice.valid_transaction.count > 0
-    #     grand_total = invoice.transactions + grand_total
-    #     end
-    #   end
-    #   grand_total
+  def customers_with_pending_invoices
+    customers = []
+    pending_invoices = invoices.reject{|invoice| invoice.paid?}
+    pending_invoices.each do |invoice|
+      customers << invoice.customer
+    end
+    customers
   end
+
+  def favorite_customer
+     customers = Customer.collection
+     best_customer = customers.sort_by{|customer| customer.transactions_for_merchant(id).count }.reverse
+     best_customer[0]
+  end
+
+
+  #   # invoices.each do |invoice|
+  #   #   if invoice.valid_transaction.count > 0
+  #   #     grand_total = invoice.transactions + grand_total
+  #   #     end
+  #   #   end
+  #   #   grand_total
 end

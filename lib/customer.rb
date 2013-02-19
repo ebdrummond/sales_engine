@@ -73,5 +73,19 @@ class Customer
   def invoices
     Invoice.find_all_by_customer_id(id)
   end
- 
+
+  def valid_transactions
+    successful_transactions = []
+    invoices.each do |invoice|
+      invoice.successful_transactions do |transaction|
+        successful_transactions << transaction
+      end
+    end
+    successful_transactions
+  end
+
+  def transactions_for_merchant(merchant_id)
+    valid_transactions.select { |transaction| transaction.invoice.merchant_id == merchant_id }
+  end
+
 end

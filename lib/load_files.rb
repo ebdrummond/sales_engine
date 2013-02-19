@@ -126,6 +126,30 @@ LoadFiles.load_invoice_items_file
 
 # puts Merchant.revenue("2012-03-08")
 
+# merchant = Merchant.find_by_id(13)
+# puts merchant.successful_transactions
 
-merchant = Merchant.find_by_id(13)
-puts merchant.successful_transactions
+# merchant = Merchant.find_by_id(13)
+# puts merchant.customers_with_pending_invoices
+
+# customer = Customer.find_by_id(29)
+# puts customer.transactions
+
+# merchant = Merchant.find_by_id(29)
+# puts merchant.favorite_customer
+
+
+
+# puts item = Item.most_revenue(10)
+# puts
+# puts
+# puts
+# puts
+# item = Item.find_by_id(227)
+# puts item.revenue
+# puts
+# item = Item.find_by_id(2174)
+# puts item.revenue
+# puts
+# item = Item.find_by_id(848)
+# puts item.revenue
