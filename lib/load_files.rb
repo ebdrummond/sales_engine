@@ -168,10 +168,13 @@ LoadFiles.load_invoice_items_file
 # item = Item.find_by_id(1396)
 # puts item.item_count
 
-item = Item.find_by_id(227)
-puts item.items_sold_per_day
-puts item.best_day
+# item = Item.find_by_id(227)
+# puts item.items_sold_per_day
+# puts item.best_day
 
 # invoice = Invoice.find_by_id(29)
 # puts invoice.invoice_date
+
+customer = Customer.find_by_id(13)
+puts customer.transactions
 

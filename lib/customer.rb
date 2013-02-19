@@ -31,19 +31,19 @@ class Customer
   end
 
   def self.find_by_first_name(first_name)
-    collection.find{|customer| customer.first_name == first_name}
+    collection.find{|customer| customer.first_name.downcase == first_name.downcase}
   end
 
   def self.find_by_last_name(last_name)
-    collection.find{|customer| customer.last_name == last_name}
+    collection.find{|customer| customer.last_name.downcase == last_name.downcase}
   end
 
   def self.find_by_created_at(created_at)
-    collection.find{|customer| customer.created_at == created_at}
+    collection.find{|customer| customer.created_at.downcase == created_at.downcase}
   end
 
   def self.find_by_updated_at(updated_at)
-    collection.find{|customer| customer.updated_at == updated_at}
+    collection.find{|customer| customer.updated_at.downcase == updated_at.downcase}
   end
 
   def self.find_all_by_id(id)
@@ -51,19 +51,19 @@ class Customer
   end
 
   def self.find_all_by_first_name(first_name)
-    collection.select{|customer| customer.first_name == first_name}
+    collection.select{|customer| customer.first_name.downcase == first_name.downcase}
   end
 
   def self.find_all_by_last_name(last_name)
-    collection.select{|customer| customer.last_name == last_name}
+    collection.select{|customer| customer.last_name.downcase == last_name.downcase}
   end
 
   def self.find_all_by_created_at(created_at)
-    collection.select{|customer| customer.created_at == created_at}
+    collection.select{|customer| customer.created_at.downcase == created_at.downcase}
   end
 
   def self.find_all_by_updated_at(updated_at)
-    collection.select{|customer| customer.updated_at == updated_at}
+    collection.select{|customer| customer.updated_at.downcase == updated_at.downcase}
   end
 
   def self.random
@@ -74,18 +74,18 @@ class Customer
     Invoice.find_all_by_customer_id(id)
   end
 
-  def valid_transactions
-    successful_transactions = []
+  def transactions
+    valid_transactions = []
     invoices.each do |invoice|
       invoice.successful_transactions do |transaction|
-        successful_transactions << transaction
+        valid_transactions << transaction
       end
     end
-    successful_transactions
+    valid_transactions
   end
 
   def transactions_for_merchant(merchant_id)
-    valid_transactions.select { |transaction| transaction.invoice.merchant_id == merchant_id }
+    transactions.select { |transaction| transaction.invoice.merchant_id == merchant_id }
   end
 
 end

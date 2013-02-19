@@ -30,17 +30,17 @@ class CustomerTest <MiniTest::Unit::TestCase
   end
 
   def test_finds_a_customer_by_first_name
-    customer = Customer.find_by_first_name("Sylvester")
+    customer = Customer.find_by_first_name("sylvester")
     assert_equal "Sylvester", customer.first_name
   end
 
   def test_finds_a_customer_by_last_name
-    customer = Customer.find_by_last_name("Fadel")
+    customer = Customer.find_by_last_name("FADEL")
     assert_equal "Fadel", customer.last_name
   end
 
   def test_finds_a_customer_by_created_at
-    customer = Customer.find_by_created_at("2012-03-27 14:54:09 UTC")
+    customer = Customer.find_by_created_at("2012-03-27 14:54:09 utc")
     assert_equal "2012-03-27 14:54:09 UTC", customer.created_at
   end
 
@@ -55,12 +55,12 @@ class CustomerTest <MiniTest::Unit::TestCase
   end
 
   def test_finds_all_customers_by_first_name
-    customer = Customer.find_all_by_first_name("Brent")
+    customer = Customer.find_all_by_first_name("BRent")
     assert_equal 2, customer.count
   end
 
   def test_finds_all_customers_by_last_name
-    customer = Customer.find_all_by_last_name("Brekke")
+    customer = Customer.find_all_by_last_name("brekke")
     assert_equal 6, customer.count
   end
 

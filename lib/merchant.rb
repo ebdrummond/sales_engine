@@ -31,15 +31,15 @@ class Merchant
   end
 
   def self.find_by_name(name)
-    collection.find{|merchant| merchant.name == name}
+    collection.find{|merchant| merchant.name.downcase == name.downcase}
   end
 
   def self.find_by_created_at(created_at)
-    collection.find{|merchant| merchant.created_at == created_at}
+    collection.find{|merchant| merchant.created_at.downcase == created_at.downcase}
   end
 
   def self.find_by_updated_at(updated_at)
-    collection.find{|merchant| merchant.updated_at == updated_at}
+    collection.find{|merchant| merchant.updated_at.downcase == updated_at.downcase}
   end
 
   def self.find_all_by_id(id)
@@ -47,15 +47,15 @@ class Merchant
   end
 
   def self.find_all_by_name(name)
-    collection.select{|merchant| merchant.name == name}
+    collection.select{|merchant| merchant.name.downcase == name.downcase}
   end
 
   def self.find_all_by_created_at(created_at)
-    collection.select{|merchant| merchant.created_at == created_at}
+    collection.select{|merchant| merchant.created_at.downcase == created_at.downcase}
   end
 
   def self.find_all_by_updated_at(updated_at)
-    collection.select{|merchant| merchant.updated_at == updated_at}
+    collection.select{|merchant| merchant.updated_at.downcase == updated_at.downcase}
   end
 
   def self.random

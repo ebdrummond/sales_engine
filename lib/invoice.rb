@@ -40,15 +40,15 @@ class Invoice
   end
 
   def self.find_by_status(status)
-    collection.find{|invoice| invoice.status == status}
+    collection.find{|invoice| invoice.status.downcase == status.downcase}
   end
 
   def self.find_by_created_at(created_at)
-    collection.find{|invoice| invoice.created_at == created_at}
+    collection.find{|invoice| invoice.created_at.downcase == created_at.downcase}
   end
 
   def self.find_by_updated_at(updated_at)
-    collection.find{|invoice| invoice.updated_at == updated_at}
+    collection.find{|invoice| invoice.updated_at.downcase == updated_at.downcase}
   end
 # ***************************** Find All By *****************************
   def self.find_all_by_id(id)
@@ -64,15 +64,15 @@ class Invoice
   end
 
   def self.find_all_by_status(status)
-    collection.select{|invoice| invoice.status == status}
+    collection.select{|invoice| invoice.status.downcase == status.downcase}
   end
 
   def self.find_all_by_created_at(created_at)
-    collection.select{|invoice| invoice.created_at == created_at}
+    collection.select{|invoice| invoice.created_at.downcase == created_at.downcase}
   end
 
   def self.find_all_by_updated_at(updated_at)
-    collection.select{|invoice| invoice.updated_at == updated_at}
+    collection.select{|invoice| invoice.updated_at.downcase == updated_at.downcase}
   end
 # ***************************** Find Random *****************************
 

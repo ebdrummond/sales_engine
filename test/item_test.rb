@@ -32,12 +32,12 @@ class ItemTest <MiniTest::Unit::TestCase
     end
 
     def test_finds_an_item_by_name
-        item = Item.find_by_name("Item Qui Esse")
+        item = Item.find_by_name("item qui esse")
         assert_equal "Item Qui Esse", item.name
     end
 
     def test_finds_an_item_by_description
-        item = Item.find_by_description("Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.")
+        item = Item.find_by_description("nihil AUtem sit odio invEntore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.")
         assert_equal "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.", item.description
     end
 
@@ -52,7 +52,7 @@ class ItemTest <MiniTest::Unit::TestCase
     end
 
     def test_finds_an_item_by_created_at
-        item = Item.find_by_created_at("2012-03-27 14:53:59 UTC")
+        item = Item.find_by_created_at("2012-03-27 14:53:59 utc")
         assert_equal "2012-03-27 14:53:59 UTC", item.created_at
     end
 

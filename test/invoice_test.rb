@@ -41,7 +41,7 @@ class InvoicesTest <MiniTest::Unit::TestCase
   end
 
   def test_finds_an_invoice_by_status
-    invoice = Invoice.find_by_status("shipped")
+    invoice = Invoice.find_by_status("SHipped")
     assert_equal "shipped", invoice.status
   end
 
@@ -51,7 +51,7 @@ class InvoicesTest <MiniTest::Unit::TestCase
   end
 
   def test_finds_an_invoice_by_updated_at
-    invoice = Invoice.find_by_updated_at("2012-03-25 09:54:09 UTC")
+    invoice = Invoice.find_by_updated_at("2012-03-25 09:54:09 utc")
     assert_equal "2012-03-25 09:54:09 UTC", invoice.updated_at
   end
 
@@ -71,7 +71,7 @@ class InvoicesTest <MiniTest::Unit::TestCase
   end
 
   def test_finds_all_invoices_by_status
-    invoice = Invoice.find_all_by_status("shipped")
+    invoice = Invoice.find_all_by_status("Shipped")
     assert_equal 4843, invoice.count
   end
 
@@ -149,19 +149,19 @@ class InvoicesTest <MiniTest::Unit::TestCase
     assert_equal "Osinski", invoice.customer.last_name
   end
 
-  def test_returns_only_invoices_with_valid_transactions
-    transactions_file = CSV.open("./data/transactions.csv", headers: true)
-      transactions = []
+  # def test_returns_only_invoices_with_valid_transactions
+  #   transactions_file = CSV.open("./data/transactions.csv", headers: true)
+  #     transactions = []
 
-    transactions_file.each do |row|
-      transactions << Transaction.new(row)
-    end
-    Transaction.store(transactions)
+  #   transactions_file.each do |row|
+  #     transactions << Transaction.new(row)
+  #   end
+  #   Transaction.store(transactions)
 
-    invoice = Invoice.find_by_id(29)
-    invoice.valid_transaction
-    assert_equal 1, invoice.valid_transaction.count
-  end
+  #   invoice = Invoice.find_by_id(29)
+  #   invoice.valid_transaction
+  #   assert_equal 1, invoice.valid_transaction.count
+  # end
 
 
 

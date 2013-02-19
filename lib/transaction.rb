@@ -46,15 +46,15 @@ class Transaction
   end
 
   def self.find_by_result(result)
-    collection.find{|transaction| transaction.result == result}
+    collection.find{|transaction| transaction.result.downcase == result.downcase}
   end
 
   def self.find_by_created_at(created_at)
-    collection.find{|transaction| transaction.created_at == created_at}
+    collection.find{|transaction| transaction.created_at.downcase == created_at.downcase}
   end
 
   def self.find_by_updated_at(updated_at)
-    collection.find{|transactions| transactions.updated_at == updated_at}
+    collection.find{|transactions| transactions.updated_at.downcase == updated_at.downcase}
   end
 
   # ***************************** Find All By *****************************
@@ -76,15 +76,15 @@ class Transaction
   end
 
   def self.find_all_by_result(result)
-    collection.select{|transaction| transaction.result == result}
+    collection.select{|transaction| transaction.result.downcase == result.downcase}
   end
 
   def self.find_all_by_created_at(created_at)
-    collection.select{|transaction| transaction.created_at == created_at}
+    collection.select{|transaction| transaction.created_at.downcase == created_at.downcase}
   end
 
   def self.find_all_by_updated_at(updated_at)
-    collection.select{|transactions| transactions.updated_at == updated_at}
+    collection.select{|transactions| transactions.updated_at.downcase == updated_at.downcase}
   end
 
   # ***************************** Random *****************************

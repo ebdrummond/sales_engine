@@ -52,12 +52,12 @@ class Invoice_Item_Test < MiniTest::Unit::TestCase
   end
 
   def test_finds_an_invoice_item_by_created_at
-    invoice_item = InvoiceItem.find_by_created_at("2012-03-27 14:54:09 UTC")
+    invoice_item = InvoiceItem.find_by_created_at("2012-03-27 14:54:09 UTc")
     assert_equal "2012-03-27 14:54:09 UTC", invoice_item.created_at
   end
 
   def test_finds_an_invoice_item_by_updated_at
-    invoice_item = InvoiceItem.find_by_updated_at("2012-03-27 14:54:09 UTC")
+    invoice_item = InvoiceItem.find_by_updated_at("2012-03-27 14:54:09 utC")
     assert_equal "2012-03-27 14:54:09 UTC", invoice_item.updated_at
   end
 
@@ -87,7 +87,7 @@ class Invoice_Item_Test < MiniTest::Unit::TestCase
   end
 
   def test_finds_all_invoice_items_by_created_at
-    invoice_item = InvoiceItem.find_all_by_created_at("2012-03-27 14:54:09 UTC")
+    invoice_item = InvoiceItem.find_all_by_created_at("2012-03-27 14:54:09 utc")
     assert_equal 15, invoice_item.count
   end
 

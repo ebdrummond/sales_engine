@@ -35,11 +35,11 @@ class Item
   end
 
   def self.find_by_name(name)
-    collection.find{|item| item.name == name}
+    collection.find{|item| item.name.downcase == name.downcase}
   end
 
   def self.find_by_description(description)
-    collection.find{|item| item.description == description}
+    collection.find{|item| item.description.downcase == description.downcase}
   end
 
   def self.find_by_unit_price(unit_price)
@@ -51,11 +51,11 @@ class Item
   end
 
   def self.find_by_created_at(created_at)
-    collection.find{|item| item.created_at == created_at}
+    collection.find{|item| item.created_at.downcase == created_at.downcase}
   end
 
   def self.find_by_updated_at(updated_at)
-    collection.find{|item| item.updated_at == updated_at}
+    collection.find{|item| item.updated_at.downcase == updated_at.downcase}
   end
 
   # ***************************** Find All By *****************************
@@ -65,11 +65,11 @@ class Item
   end
 
   def self.find_all_by_name(name)
-    collection.select{|item| item.name == name}
+    collection.select{|item| item.name.downcase == name.downcase}
   end
 
   def self.find_all_by_description(description)
-    collection.select{|item| item.description == description}
+    collection.select{|item| item.description.downcase == description.downcase}
   end
 
   def self.find_all_by_unit_price(unit_price)
@@ -81,11 +81,11 @@ class Item
   end
 
   def self.find_all_by_created_at(created_at)
-    collection.select{|item| item.created_at == created_at}
+    collection.select{|item| item.created_at.downcase == created_at.downcase}
   end
 
   def self.find_all_by_updated_at(updated_at)
-    collection.select{|item| item.updated_at == updated_at}
+    collection.select{|item| item.updated_at.downcase == updated_at.downcase}
   end  
 
   # ***************************** Find Random *****************************

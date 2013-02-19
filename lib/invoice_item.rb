@@ -48,11 +48,11 @@ class InvoiceItem
   end
 
   def self.find_by_created_at(created_at)
-    collection.find{|invoice_item| invoice_item.created_at == created_at}
+    collection.find{|invoice_item| invoice_item.created_at.downcase == created_at.downcase}
   end
 
   def self.find_by_updated_at(updated_at)
-    collection.find{|invoice_item| invoice_item.updated_at == updated_at}
+    collection.find{|invoice_item| invoice_item.updated_at.downcase == updated_at.downcase}
   end
 
   def self.find_all_by_id(id)
@@ -76,11 +76,11 @@ class InvoiceItem
   end
 
   def self.find_all_by_created_at(created_at)
-    collection.select{|invoice_item| invoice_item.created_at == created_at}
+    collection.select{|invoice_item| invoice_item.created_at.downcase == created_at.downcase}
   end
 
   def self.find_all_by_updated_at(updated_at)
-    collection.select{|invoice_item| invoice_item.updated_at == updated_at}
+    collection.select{|invoice_item| invoice_item.updated_at.downcase == updated_at.downcase}
   end
 
   def self.random
