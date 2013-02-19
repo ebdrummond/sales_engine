@@ -88,10 +88,6 @@ class Invoice
     transactions.any?{|transaction| transaction.successful? }
   end
 
-  def successful_transactions
-    transactions.select{|transaction| transaction.successful?}
-  end
-
   def total
     total = 0
     subtotals = invoice_items.collect{|invoice_item| invoice_item.subtotal }

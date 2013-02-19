@@ -1,3 +1,4 @@
+
 require 'csv'
 require_relative 'invoice'
 require_relative 'merchant'
@@ -125,8 +126,14 @@ LoadFiles.load_invoice_items_file
 
 
 # puts Merchant.revenue("2012-03-08")
+# a = Time.new
+# merchant = Merchant.find_by_name("Dicki-Bednar")
+# puts merchant.revenue
+# b = Time.new
+# puts b-a
 
-# merchant = Merchant.find_by_id(13)
+# merchant2 = Merchant.find_by_name("Willms and Sons")
+# puts merchant2.revenue("2012-03-09")
 # puts merchant.successful_transactions
 
 # merchant = Merchant.find_by_id(13)
@@ -154,13 +161,11 @@ LoadFiles.load_invoice_items_file
 # item = Item.find_by_id(848)
 # puts item.revenue
 
-# puts Item.most_items(20)
+# puts Item.most_items(10)
 # puts
 # puts
 # puts
-# puts
-# item = Item.find_by_id(227)
-# puts item.item_count
+# puts Item.find_by_id(227).item_count
 # puts
 # item = Item.find_by_id(2174)
 # puts item.item_count
@@ -175,6 +180,12 @@ LoadFiles.load_invoice_items_file
 # invoice = Invoice.find_by_id(29)
 # puts invoice.invoice_date
 
-customer = Customer.find_by_id(13)
-puts customer.transactions
+# customer = Customer.find_by_id(13)
+# puts customer.transactions
 
+
+# customer = Customer.find_by_id(13)
+# puts customer.transactions
+
+merchant = Merchant.find_by_id(29)
+puts merchant.sorted_customers_per_merchant

@@ -1,3 +1,5 @@
+require 'simplecov'
+SimpleCov.start
 require 'csv'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -97,7 +99,7 @@ class ItemTest <MiniTest::Unit::TestCase
     end
 
     def test_finds_item_invoice_items
-    invoice_items_file = CSV.open("../data/test_invoice_items.csv", headers: true)
+    invoice_items_file = CSV.open("./data/test_invoice_items.csv", headers: true)
     invoice_items = []
 
     invoice_items_file.each do |row|
@@ -111,7 +113,7 @@ class ItemTest <MiniTest::Unit::TestCase
     end
     
     def test_finds_item_merchants
-    items_file = CSV.open("../data/test_items.csv", headers: true)
+    items_file = CSV.open("./data/test_items.csv", headers: true)
     items = []
 
     items_file.each do |row|

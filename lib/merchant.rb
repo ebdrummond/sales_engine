@@ -70,21 +70,21 @@ class Merchant
     Invoice.find_all_by_merchant_id(id)
   end
 
-  def revenue
-    grand_total = 0
-    invoices.each do |invoice|
-      if invoice.paid?
-        grand_total = grand_total + invoice.total
-        end
-      end
+  def revenue(date = :all)
+    if date == :all
+      grand_total = 0
+      invoices.each do |invoice|
+        if invoice.paid?
+          grand_total = grand_total + invoice.total
+         end
+       end
     grand_total
-  end
-
-  def revenue(date)
-    grand_total = 0
-    invoices.each do |invoice|
-      if invoice.paid? && invoice.created_at.include?(date)
-        grand_total = grand_total + invoice.total
+    else  
+      grand_total = 0
+      invoices.each do |invoice|
+        if invoice.paid? && invoice.created_at.include?(date)
+          grand_total = grand_total + invoice.total
+        end
       end
     end
     grand_total
@@ -117,26 +117,33 @@ class Merchant
     highest_sellers.reverse[0..number-1]
   end
 
+  def pending_invoices
+    invoices.reject{|invoice| invoice.paid?}
+  end
+
   def customers_with_pending_invoices
-    customers = []
-    pending_invoices = invoices.reject{|invoice| invoice.paid?}
-    pending_invoices.each do |invoice|
+    pending_invoices.inject([]) do |customers, invoice| 
       customers << invoice.customer
     end
-    customers
+  end
+
+  def customers_per_merchant
+    customer_hash = Hash.new(0)
+    invoices.each do |invoice|
+      if invoice.paid?
+        customer_hash[invoice.customer_id] += 1
+      end
+    end
+    customer_hash
+  end
+
+  def sorted_customers_per_merchant
+    sorted_list = customers_per_merchant.sort_by{|customer_id, purchases| purchases }.reverse
+    sorted_list.first[0]
   end
 
   def favorite_customer
-     customers = Customer.collection
-     best_customer = customers.sort_by{|customer| customer.transactions_for_merchant(id).count }.reverse
-     best_customer[0]
+    result = sorted_customers_per_merchant
+    Customer.find_by_id(result)
   end
-
-
-  #   # invoices.each do |invoice|
-  #   #   if invoice.valid_transaction.count > 0
-  #   #     grand_total = invoice.transactions + grand_total
-  #   #     end
-  #   #   end
-  #   #   grand_total
 end

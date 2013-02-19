@@ -74,18 +74,33 @@ class Customer
     Invoice.find_all_by_customer_id(id)
   end
 
+  def merchants_per_customer
+    merchant_hash = Hash.new(0)
+    invoices.each do |invoice|
+      if invoice.paid?
+        merchant_hash[invoice.merchant_id] += 1
+      end
+    end
+    merchant_hash
+  end
+
+  def sorted_merchants_per_customer
+    sorted_list = merchants_per_customer.sort_by{|merchant_id, purchases| purchases }.reverse
+    sorted_list.first[0]
+  end
+
+  def favorite_merchant
+    result = sorted_merchants_per_customer
+    Merchant.find_by_id(result)
+  end
+
   def transactions
     valid_transactions = []
     invoices.each do |invoice|
-      invoice.successful_transactions do |transaction|
-        valid_transactions << transaction
+      if invoice.paid?
+        valid_transactions << (invoice.transactions)
       end
     end
     valid_transactions
   end
-
-  def transactions_for_merchant(merchant_id)
-    transactions.select { |transaction| transaction.invoice.merchant_id == merchant_id }
-  end
-
 end
