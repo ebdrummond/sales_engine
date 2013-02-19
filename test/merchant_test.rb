@@ -122,8 +122,8 @@ class MerchantTest <MiniTest::Unit::TestCase
     InvoiceItem.store(invoice_items)
 
     merchant = Merchant.find_by_id(29)
-    revenue = merchant.revenue
-    assert_equal 67947368, revenue
+    merchant.revenue
+    assert_equal 67947368, merchant.revenue
   end
   
 end

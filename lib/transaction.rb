@@ -10,7 +10,7 @@ class Transaction
     @invoice_id = input["invoice_id"].to_i
     @credit_card_number = input["credit_card_number"].to_i
     @credit_card_expiration_date = input["credit_card_expiration_date"] || ""
-    @result = input["result"].to_s
+    @result = input["result"]
     @created_at = Time.parse(input["created_at"]).to_s
     @updated_at = Time.parse(input["updated_at"]).to_s
   end
@@ -95,6 +95,10 @@ class Transaction
 
   def invoice
     Invoice.find_by_id(invoice_id)
+  end
+
+  def successful?
+    result == "success"
   end
 
 end

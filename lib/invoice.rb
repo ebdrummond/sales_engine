@@ -84,8 +84,17 @@ class Invoice
     Transaction.find_all_by_invoice_id(id)
   end
 
-  def valid_transaction
-    transactions.collect{|transaction| transaction.result == "success"}
+  def paid?
+    transactions.any?{|transaction| transaction.successful? }
+  end
+
+  def total
+    total = 0
+    subtotals = invoice_items.collect{|invoice_item| invoice_item.subtotal }
+    subtotals.each do |subtotal|
+      total = total + subtotal
+    end
+    return total
   end
 
   def invoice_items

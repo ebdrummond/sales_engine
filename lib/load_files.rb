@@ -125,3 +125,7 @@ LoadFiles.load_invoice_items_file
 
 
 # puts Merchant.revenue("2012-03-08")
+
+
+merchant = Merchant.find_by_id(13)
+puts merchant.successful_transactions

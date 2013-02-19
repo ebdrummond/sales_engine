@@ -73,9 +73,8 @@ class Merchant
   def revenue
     grand_total = 0
     invoices.each do |invoice|
-      if invoice.valid_transaction.count > 0
-        invoice.invoice_items.each do |invoice_item|
-          grand_total = invoice_item.quantity * invoice_item.unit_price + grand_total
+      if invoice.paid?
+        grand_total = grand_total + invoice.total
         end
       end
     end
@@ -85,10 +84,8 @@ class Merchant
   def revenue(date)
     grand_total = 0
     invoices.each do |invoice|
-      if invoice.valid_transaction.count > 0 && invoice.created_at.include?(date)
-        invoice.invoice_items.each do |invoice_item|
-          grand_total = invoice_item.quantity * invoice_item.unit_price + grand_total
-        end
+      if invoice.paid?
+        grand_total = grand_total + invoice.total
       end
     end
     grand_total
@@ -120,6 +117,16 @@ class Merchant
     highest_sellers = collection.sort_by{|merchant| merchant.item_count}
     highest_sellers.reverse[0..number-1]
   end
+
+  def successful_transactions
+    successful_invoices = invoices.select{|invoice| invoice.valid_transaction}
+
+    successful_invoices
+    # invoices.each do |invoice|
+    #   if invoice.valid_transaction.count > 0
+    #     grand_total = invoice.transactions + grand_total
+    #     end
+    #   end
+    #   grand_total
+  end
 end
-
-

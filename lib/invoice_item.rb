@@ -94,4 +94,8 @@ class InvoiceItem
   def item
     Item.find_by_id(item_id)
   end
+
+  def subtotal
+    quantity * unit_price
+  end
 end
