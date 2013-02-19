@@ -96,4 +96,32 @@ class ItemTest <MiniTest::Unit::TestCase
         assert_equal 170, item.count
     end
 
+    def test_finds_item_invoice_items
+    invoice_items_file = CSV.open("../data/test_invoice_items.csv", headers: true)
+    invoice_items = []
+
+    invoice_items_file.each do |row|
+    invoice_items << InvoiceItem.new(row)
+    end
+    InvoiceItem.store(invoice_items)
+
+    item = Item.find_by_id(1)
+    InvoiceItem.find_all_by_item_id(1)
+    assert_equal 1, item.invoice_items.count
+    end
+    
+    def test_finds_item_merchants
+    items_file = CSV.open("../data/test_items.csv", headers: true)
+    items = []
+
+    items_file.each do |row|
+    items << Item.new(row)
+    end
+    Item.store(items)
+
+    item = Item.find_by_merchant_id(1)
+    Merchant.find_by_id(1)
+    assert_equal 1,item.merchant.count
+    end
+
 end
