@@ -123,4 +123,5 @@ class Invoice_Item_Test < MiniTest::Unit::TestCase
     invoice_items.item
     assert_equal "Item Sunt Saepe", invoice_items.item.name
   end
+  
 end

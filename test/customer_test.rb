@@ -73,4 +73,18 @@ class CustomerTest <MiniTest::Unit::TestCase
     customer = Customer.find_all_by_updated_at("2012-03-27 14:54:11 UTC")
     assert_equal 3, customer.count
   end
+
+    def test_finds_customer_invoices
+    invoices_file = CSV.open("../data/test_invoices.csv", headers: true)
+    invoices = []
+
+    invoices_file.each do |row|
+    invoices << Invoice.new(row)
+    end
+    Invoice.store(invoices)
+
+    customer = Customer.find_by_id(1)
+    Invoice.find_all_by_customer_id(1)
+    assert_equal 8, customer.invoices.count
+  end
 end
