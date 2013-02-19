@@ -1,5 +1,6 @@
 require 'csv'
 require 'time'
+require './lib/invoice_item'
 
 class Invoice
 
@@ -111,6 +112,27 @@ class Invoice
 
   def invoice_date
     Time.parse(created_at).strftime("%Y-%m-%d")
+  end
+
+  def self.count
+    collection.count
+  end
+
+  def self.generate_id
+    collection.count +2
+  end
+
+  def self.create(input)
+    invoice = Invoice.new({"id" => generate_id,
+                                        "customer_id" => input[:customer].id,
+                                        "merchant_id" => input[:merchant].id,
+                                        "created_at" => Time.now.to_s, 
+                                        "updated_at" => Time.now.to_s})
+    input[:items].each do |item|
+      InvoiceItem.create(:invoice_id => invoice.id, :item_id =>item.id)
+    end
+    collection << invoice
+    invoice
   end
 
 end

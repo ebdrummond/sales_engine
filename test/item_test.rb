@@ -99,7 +99,7 @@ class ItemTest <MiniTest::Unit::TestCase
     end
 
     def test_finds_item_invoice_items
-    invoice_items_file = CSV.open("./data/test_invoice_items.csv", headers: true)
+    invoice_items_file = CSV.open("./data/invoice_items.csv", headers: true)
     invoice_items = []
 
     invoice_items_file.each do |row|
@@ -107,23 +107,23 @@ class ItemTest <MiniTest::Unit::TestCase
     end
     InvoiceItem.store(invoice_items)
 
-    item = Item.find_by_id(1)
-    InvoiceItem.find_all_by_item_id(1)
-    assert_equal 1, item.invoice_items.count
+    item = Item.find_by_id(13)
+    InvoiceItem.find_all_by_item_id(13)
+    assert_equal 19, item.invoice_items.count
     end
     
     def test_finds_item_merchants
-    items_file = CSV.open("./data/test_items.csv", headers: true)
-    items = []
+    merchants_file = CSV.open("./data/merchants.csv", headers: true)
+    merchants = []
 
-    items_file.each do |row|
-    items << Item.new(row)
+    merchants_file.each do |row|
+    merchants << Merchant.new(row)
     end
-    Item.store(items)
+    Merchant.store(merchants)
 
-    item = Item.find_by_merchant_id(1)
-    Merchant.find_by_id(1)
-    assert_equal 1,item.merchant.count
+    item = Item.find_by_merchant_id(29)
+    item.merchant
+    assert_equal 9,item.merchant.count
     end
 
 end

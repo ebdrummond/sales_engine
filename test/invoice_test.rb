@@ -151,6 +151,62 @@ class InvoicesTest <MiniTest::Unit::TestCase
     assert_equal "Osinski", invoice.customer.last_name
   end
 
+  def test_creating_an_invoice_makes_an_invoice
+    starting_count = Invoice.count
+    Invoice.create 
+    assert_equal starting_count +1, Invoice.count
+  end
+
+  class MockCustomer
+    def id
+      100000
+    end
+   end
+
+   class MockMerchant
+    def id
+      999999
+    end
+  end
+
+  class MockItem
+    attr_reader :id
+    def initialize(input)
+      @id = input
+    end
+  end
+
+  def test_creating_an_invoice_associates_with_a_customer
+    customer = MockCustomer.new
+    merchant = MockMerchant.new
+    invoice = Invoice.create({:customer => customer, :merchant => merchant})
+    assert_equal customer.id, invoice.customer_id
+  end
+
+  def test_creating_an_invoice_associates_with_a_merchant
+    merchant = MockMerchant.new
+    customer = MockCustomer.new
+    invoice = Invoice.create({:merchant => merchant, :customer => customer})
+    assert_equal merchant.id, invoice.merchant_id
+  end
+
+  def test_creating_an_invoice_associates_with_items
+    item1 = MockItem.new(88888)
+    item2 = MockItem.new(77777)
+    item3 = MockItem.new(66666)
+    merchant = MockMerchant.new
+    customer = MockCustomer.new
+    invoice = Invoice.create({:merchant => merchant, :customer => customer, :items => [item1, item2, item3]})
+    assert_includes invoice.items, item1
+    assert_includes invoice.items, item2
+    assert_includes invoice.items, item3
+  end
+
+  def test_generates_new_invoice_id
+    id = Invoice.generate_id
+    refute Invoice.find_by_id(id), "found a matching invoice id"
+  end
+
   # def test_returns_only_invoices_with_valid_transactions
   #   transactions_file = CSV.open("./data/transactions.csv", headers: true)
   #     transactions = []

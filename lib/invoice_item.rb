@@ -24,7 +24,7 @@ class InvoiceItem
   end
 
   def self.collection
-    @invoice_items
+    @invoice_items ||= []
   end
 
   def self.find_by_id(id)

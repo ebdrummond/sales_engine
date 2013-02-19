@@ -77,7 +77,7 @@ class CustomerTest <MiniTest::Unit::TestCase
   end
 
     def test_finds_customer_invoices
-    invoices_file = CSV.open("../data/test_invoices.csv", headers: true)
+    invoices_file = CSV.open("./data/test_invoices.csv", headers: true)
     invoices = []
 
     invoices_file.each do |row|

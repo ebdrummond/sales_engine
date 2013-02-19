@@ -187,5 +187,5 @@ LoadFiles.load_invoice_items_file
 # customer = Customer.find_by_id(13)
 # puts customer.transactions
 
-merchant = Merchant.find_by_id(29)
-puts merchant.sorted_customers_per_merchant
+# merchant = Merchant.find_by_id(29)
+# puts merchant.sorted_customers_per_merchant
