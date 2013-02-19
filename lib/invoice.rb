@@ -113,6 +113,10 @@ class Invoice
     Customer.find_by_id(customer_id)
   end
 
+  def invoice_date
+    Time.parse(created_at).strftime("%Y-%m-%d")
+  end
+
 end
 
 

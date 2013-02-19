@@ -154,16 +154,24 @@ LoadFiles.load_invoice_items_file
 # item = Item.find_by_id(848)
 # puts item.revenue
 
-puts Item.most_items(20)
-puts
-puts
-puts
-puts
+# puts Item.most_items(20)
+# puts
+# puts
+# puts
+# puts
+# item = Item.find_by_id(227)
+# puts item.item_count
+# puts
+# item = Item.find_by_id(2174)
+# puts item.item_count
+# puts
+# item = Item.find_by_id(1396)
+# puts item.item_count
+
 item = Item.find_by_id(227)
-puts item.item_count
-puts
-item = Item.find_by_id(2174)
-puts item.item_count
-puts
-item = Item.find_by_id(1396)
-puts item.item_count
+puts item.items_sold_per_day
+puts item.best_day
+
+# invoice = Invoice.find_by_id(29)
+# puts invoice.invoice_date
+

@@ -141,4 +141,16 @@ class Item
     highest_sellers = collection.sort_by{|item| item.item_count}
     highest_sellers.reverse[0..number-1]
   end
+
+  def items_sold_per_day
+    items_per_day = Hash.new(0)
+    invoice_items.each do |invoice_item|
+      items_per_day[invoice_item.invoice.invoice_date] += invoice_item.quantity
+    end
+    items_per_day
+  end
+
+  def best_day
+    items_sold_per_day.max_by{|invoice_date, quantity| quantity}[0]
+  end
 end
