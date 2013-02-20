@@ -26,7 +26,8 @@ module SalesEngine
     end
 
     def test_find_by_created_at
-      merchant = Merchant.find_by_created_at(Date.parse("2012-03-27"))
+      date = Date.parse("2012-03-27")
+      merchant = Merchant.find_by_created_at(date)
       assert_equal Date.parse("2012-03-27"), merchant.created_at
     end
 
@@ -49,13 +50,15 @@ module SalesEngine
     end
 
     def test_find_all_by_created_at
-      merchant = Merchant.find_all_by_created_at(Date.parse("2012-03-27"))
-      assert_equal 9,merchant.count
+      date = Date.parse("2012-03-27")
+      merchant = Merchant.find_all_by_created_at(date)
+      assert_equal 100,merchant.count
     end
 
     def test_find_all_by_upload_at
-      merchant = Merchant.find_all_by_updated_at(Date.parse("2012-03-27"))
-      assert_equal 8,merchant.count
+      date = Date.parse("2012-03-27")
+      merchant = Merchant.find_all_by_updated_at(date)
+      assert_equal 100,merchant.count
     end
 
     def test_finds_merchant_items
@@ -85,36 +88,5 @@ module SalesEngine
       Invoice.find_all_by_merchant_id(29)
       assert_equal 49, merchant.invoices.count
     end
-
-    # def test_finds_all_revenue_associated_with_merchant
-      # invoices_file = CSV.open("./data/invoices.csv", headers: true)
-      # invoices = []
-
-      # invoices_file.each do |row|
-      #   invoices <<Invoice.new(row)
-      # end
-      # Invoice.store(invoices)
-
-      # transactions_file = CSV.open("./data/invoices.csv", headers: true)
-      # transactions = []
-
-      # transactions_file.each do |row|
-      #   transactions <<Transaction.new(row)
-      # end
-      # Transaction.store(transactions)
-
-      # invoice_items_file = CSV.open("./data/invoice_items.csv", headers: true)
-      #   invoice_items = []
-
-      # invoice_items_file.each do |row|
-      #     invoice_items << InvoiceItem.new(row)
-      # end
-      # InvoiceItem.store(invoice_items)
-
-      # merchant = Merchant.find_by_id(29)
-      # merchant.revenue
-      # assert_equal 67947368, merchant.revenue
-    # end
-    
   end
 end

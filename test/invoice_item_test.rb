@@ -13,15 +13,6 @@ require './test/test_helper'
       InvoiceItem.store(invoice_items)
     end
 
-    def test_create_invoice_item
-      invoice_item = InvoiceItem.new({"id" => 1, "item_id" => 2, "invoice_id" => 3, "quantity" => 4, "unit_price" => 5})
-      assert_equal 1, invoice_item.id
-      assert_equal 2, invoice_item.item_id
-      assert_equal 3, invoice_item.invoice_id
-      assert_equal 4, invoice_item.quantity
-      assert_equal 5, invoice_item.unit_price
-    end
-
     def test_finds_an_invoice_item_by_id
       invoice_item = InvoiceItem.find_by_id(6)
       assert_equal 6, invoice_item.id
@@ -48,13 +39,15 @@ require './test/test_helper'
     end
 
     def test_finds_an_invoice_item_by_created_at
-      invoice_item = InvoiceItem.find_by_created_at("2012-03-27 14:54:09 UTc")
-      assert_equal "2012-03-27 14:54:09 UTC", invoice_item.created_at
+      date = Date.parse("2012-03-27")
+      invoice_item = InvoiceItem.find_by_created_at(date)
+      assert_equal Date.parse("2012-03-27"), invoice_item.created_at
     end
 
     def test_finds_an_invoice_item_by_updated_at
-      invoice_item = InvoiceItem.find_by_updated_at("2012-03-27 14:54:09 utC")
-      assert_equal "2012-03-27 14:54:09 UTC", invoice_item.updated_at
+      date = Date.parse("2012-03-27")
+      invoice_item = InvoiceItem.find_by_updated_at(date)
+      assert_equal Date.parse("2012-03-27"), invoice_item.updated_at
     end
 
     def test_finds_all_invoice_items_by_id
@@ -83,13 +76,15 @@ require './test/test_helper'
     end
 
     def test_finds_all_invoice_items_by_created_at
-      invoice_item = InvoiceItem.find_all_by_created_at("2012-03-27 14:54:09 utc")
-      assert_equal 15, invoice_item.count
+      date = Date.parse("2012-03-27")
+      invoice_item = InvoiceItem.find_all_by_created_at(date)
+      assert_equal 21687, invoice_item.count
     end
 
     def test_finds_all_invoice_items_by_updated_at
-      invoice_item = InvoiceItem.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
-      assert_equal 15, invoice_item.count
+      date = Date.parse("2012-03-27")
+      invoice_item = InvoiceItem.find_all_by_updated_at(date)
+      assert_equal 21687, invoice_item.count
     end
 
     def test_finds_invoice_item_invoice
