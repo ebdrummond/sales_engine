@@ -36,13 +36,15 @@ module SalesEngine
     end
 
     def test_finds_a_customer_by_created_at
-      customer = Customer.find_by_created_at("2012-03-27 14:54:09 utc")
-      assert_equal "2012-03-27 14:54:09 UTC", customer.created_at
+      date = Date.parse("2012-03-27")
+      customer = Customer.find_by_created_at(date)
+      assert_equal Date.parse("2012-03-27"), customer.created_at
     end
 
     def test_finds_a_customer_by_updated_at
-      customer = Customer.find_by_updated_at("2012-03-27 14:54:09 UTC")
-      assert_equal "2012-03-27 14:54:09 UTC", customer.updated_at
+      date = Date.parse("2012-03-27")
+      customer = Customer.find_by_updated_at(date)
+      assert_equal Date.parse("2012-03-27"), customer.updated_at
     end
 
     def test_finds_all_customers_by_id
@@ -61,13 +63,15 @@ module SalesEngine
     end
 
     def test_finds_all_customers_by_created_at
-      customer = Customer.find_all_by_created_at("2012-03-27 14:54:10 UTC")
-      assert_equal 6, customer.count
+      date = Date.parse("2012-03-27")
+      customer = Customer.find_all_by_created_at(date)
+      assert_equal 1000, customer.count
     end
 
     def test_finds_all_customers_by_updated_at
-      customer = Customer.find_all_by_updated_at("2012-03-27 14:54:11 UTC")
-      assert_equal 3, customer.count
+      date = Date.parse("2012-03-27")
+      customer = Customer.find_all_by_updated_at(date)
+      assert_equal 1000, customer.count
     end
 
       def test_finds_customer_invoices

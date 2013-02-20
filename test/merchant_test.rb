@@ -56,7 +56,7 @@ module SalesEngine
     end
 
     def test_find_all_by_upload_at
-      date = Date.parse("2012-03-27 14:53:59 UTC")
+      date = Date.parse("2012-03-27")
       merchant = Merchant.find_all_by_updated_at(date)
       assert_equal 100,merchant.count
     end
