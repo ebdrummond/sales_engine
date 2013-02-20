@@ -1,7 +1,3 @@
-require 'csv'
-require 'time'
-require 'bigdecimal'
-
 module SalesEngine
   class Merchant
     attr_reader :id, :name, :created_at, :updated_at

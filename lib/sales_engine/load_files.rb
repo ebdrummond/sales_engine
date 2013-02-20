@@ -1,16 +1,8 @@
-require 'csv'
-require_relative 'invoice'
-require_relative 'merchant'
-require_relative 'item'
-require_relative 'invoice_item'
-require_relative 'transaction'
-require_relative 'customer'
-
 module SalesEngine
   class LoadFiles
 
     def self.load_invoices_file
-      invoices_file = CSV.open("../data/invoices.csv", headers: true)
+      invoices_file = CSV.open("./data/invoices.csv", headers: true)
       invoices = []
 
       invoices_file.each do |row|
@@ -20,7 +12,7 @@ module SalesEngine
     end
 
     def self.load_merchants_file
-      merchants_file = CSV.open("../data/merchants.csv", headers: true)
+      merchants_file = CSV.open("./data/merchants.csv", headers: true)
       merchants = []
 
       merchants_file.each do |row|
@@ -30,7 +22,7 @@ module SalesEngine
     end
 
     def self.load_items_file
-      items_file = CSV.open("../data/items.csv", headers: true)
+      items_file = CSV.open("./data/items.csv", headers: true)
       items = []
 
       items_file.each do |row|
@@ -40,7 +32,7 @@ module SalesEngine
     end
 
     def self.load_customers_file
-      customers_file = CSV.open("../data/customers.csv", headers: true)
+      customers_file = CSV.open("./data/customers.csv", headers: true)
       customers = []
 
       customers_file.each do |row|
@@ -50,7 +42,7 @@ module SalesEngine
     end
 
     def self.load_invoice_items_file
-      invoice_items_file = CSV.open("../data/invoice_items.csv", headers: true)
+      invoice_items_file = CSV.open("./data/invoice_items.csv", headers: true)
       invoice_items = []
 
       invoice_items_file.each do |row|
@@ -60,7 +52,7 @@ module SalesEngine
     end
 
     def self.load_transactions_file
-      transactions_file = CSV.open("../data/transactions.csv", headers: true)
+      transactions_file = CSV.open("./data/transactions.csv", headers: true)
       transactions= []
 
       transactions_file.each do |row|

@@ -1,7 +1,3 @@
-require 'csv'
-require 'date'
-require 'bigdecimal'
- 
 module SalesEngine
   class InvoiceItem
 

@@ -1,7 +1,3 @@
-require 'csv'
-require 'date'
-require_relative 'invoice_item'
-
 module SalesEngine
   class Invoice
 
@@ -165,6 +161,3 @@ module SalesEngine
     end
   end
 end
-
-
-

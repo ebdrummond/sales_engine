@@ -1,4 +1,14 @@
-require_relative './sales_engine/load_files'
+require 'csv'
+require 'time'
+require 'bigdecimal'
+
+require './lib/sales_engine/invoice'
+require './lib/sales_engine/merchant'
+require './lib/sales_engine/item'
+require './lib/sales_engine/invoice_item'
+require './lib/sales_engine/transaction'
+require './lib/sales_engine/customer'
+require './lib/sales_engine/load_files'
 
 module SalesEngine
 
@@ -13,5 +23,3 @@ module SalesEngine
 end
 
 SalesEngine.startup
-date = Date.parse "Tue, 20 Mar 2012"
-puts SalesEngine::Merchant.revenue(date)
