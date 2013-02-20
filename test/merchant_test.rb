@@ -5,6 +5,8 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/merchant'
 require './lib/invoice'
+require 'date'
+require 'time'
 
 class MerchantTest <MiniTest::Unit::TestCase
 
@@ -16,12 +18,6 @@ class MerchantTest <MiniTest::Unit::TestCase
       merchants << Merchant.new(row)
     end
     Merchant.store(merchants)
-  end
-
-  def test_create_merchant
-    merchant = Merchant.new({"id" => 1, "name" => 2})
-    assert_equal 1, merchant.id
-    assert_equal 2, merchant.name
   end
 
 # ********************** Find By **********************
@@ -37,13 +33,14 @@ class MerchantTest <MiniTest::Unit::TestCase
   end
 
   def test_find_by_created_at
-    merchant = Merchant.find_by_created_at("2012-03-27 14:53:59 utc")
-    assert_equal "2012-03-27 14:53:59 UTC", merchant.created_at
+    merchant = Merchant.find_by_created_at(Date.parse("2012-03-27"))
+    assert_equal Date.parse("2012-03-27"), merchant.created_at
   end
 
   def test_find_by_updated_at
-    merchant = Merchant.find_by_updated_at("2012-03-27 14:53:59 UTC")
-    assert_equal "2012-03-27 14:53:59 UTC", merchant.updated_at
+    date = Date.parse("2012-03-27")
+    merchant = Merchant.find_by_updated_at(date)
+    assert_equal Date.parse("2012-03-27"), merchant.updated_at
   end
 
 # ********************** Find All By **********************
@@ -59,12 +56,12 @@ class MerchantTest <MiniTest::Unit::TestCase
   end
 
   def test_find_all_by_created_at
-    merchant = Merchant.find_all_by_created_at("2012-03-27 14:53:59 UTC")
+    merchant = Merchant.find_all_by_created_at(Date.parse("2012-03-27 14:53:59 UTC"))
     assert_equal 9,merchant.count
   end
 
   def test_find_all_by_upload_at
-    merchant = Merchant.find_all_by_updated_at("2012-03-27 14:53:59 UTC")
+    merchant = Merchant.find_all_by_updated_at(Date.parse("2012-03-27 14:53:59 UTC"))
     assert_equal 8,merchant.count
   end
 

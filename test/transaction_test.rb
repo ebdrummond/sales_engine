@@ -50,13 +50,13 @@ class TransactionTest <MiniTest::Unit::TestCase
   end
 
   def test_find_by_created_at
-    transaction = Transaction.find_by_created_at("2012-03-27 14:54:09 utc")
-    assert_equal "2012-03-27 14:54:09 UTC", transaction.created_at
+    transaction = Transaction.find_by_created_at(2012-03-27 14:54:09 UTC)
+    assert_equal 2012-03-27 14:54:09 UTC, transaction.created_at
   end
 
   def test_find_by_updated_at
-    transaction = Transaction.find_by_updated_at("2012-03-27 14:54:09 UTC")
-    assert_equal "2012-03-27 14:54:09 UTC", transaction.updated_at
+    transaction = Transaction.find_by_updated_at(2012-03-27 14:54:09 UTC)
+    assert_equal 2012-03-27 14:54:09 UTC, transaction.updated_at
   end
 
   # ********************** Find All By **********************
@@ -87,12 +87,12 @@ class TransactionTest <MiniTest::Unit::TestCase
   end
 
   def test_find_all_by_created_at
-    transaction = Transaction.find_all_by_created_at("2012-03-27 14:54:09 UTC")
+    transaction = Transaction.find_all_by_created_at(2012-03-27 14:54:09 UTC)
     assert_equal 2, transaction.count
   end
 
   def test_find_all_by_updated_at
-    transaction = Transaction.find_all_by_updated_at("2012-03-27 14:54:09 utc")
+    transaction = Transaction.find_all_by_updated_at(2012-03-27 14:54:09 UTC)
     assert_equal 2, transaction.count
   end
 
