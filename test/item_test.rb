@@ -13,18 +13,18 @@ module SalesEngine
           Item.store(items)
       end
 
-      def test_create_item
-        item = Item.new({"id" => 1, "name" => 2, "description" => 3, "unit_price" => 4, "merchant_id" => 5})
-        assert_equal 1, item.id
-        assert_equal 2, item.name
-        assert_equal 3, item.description
-        assert_equal 4, item.unit_price
-        assert_equal 5, item.merchant_id
-      end
+      # def test_create_item
+      #   item = Item.new({"id" => 1, "name" => 2, "description" => 3, "unit_price" => 4, "merchant_id" => 5})
+      #   assert_equal 1, item.id
+      #   assert_equal 2, item.name
+      #   assert_equal 3, item.description
+      #   assert_equal 4, item.unit_price
+      #   assert_equal 5, item.merchant_id
+      # end
 
-      def test_finds_an_item_by_id
-        item = Item.find_by_id(1)
-        assert_equal 1, item.id
+        def test_finds_an_item_by_id
+            item = Item.find_by_id(1)
+            assert_equal 1, item.id
         end
 
         def test_finds_an_item_by_name
@@ -48,13 +48,13 @@ module SalesEngine
         end
 
         def test_finds_an_item_by_created_at
-            item = Item.find_by_created_at("2012-03-27 14:53:59 utc")
-            assert_equal "2012-03-27 14:53:59 UTC", item.created_at
+            item = Item.find_by_created_at(Date.parse("2012-03-27"))
+            assert_equal (Date.parse("2012-03-27")), item.created_at
         end
 
         def test_finds_an_item_by_updated_at
-            item = Item.find_by_updated_at("2012-03-27 14:53:59 UTC")
-            assert_equal "2012-03-27 14:53:59 UTC", item.updated_at
+            item = Item.find_by_updated_at(Date.parse("2012-03-27"))
+            assert_equal Date.parse("2012-03-27"), item.updated_at
         end
 
         def test_finds_all_items_by_id
@@ -83,13 +83,13 @@ module SalesEngine
         end
 
         def test_finds_all_by_created_at
-            item = Item.find_all_by_created_at("2012-03-27 14:53:59 UTC")
-            assert_equal 170, item.count
+            item = Item.find_all_by_created_at(Date.parse("2012-03-27"))
+            assert_equal 2483, item.count
         end
 
         def test_finds_all_by_updated_at
-            item = Item.find_all_by_updated_at("2012-03-27 14:53:59 UTC")
-            assert_equal 170, item.count
+            item = Item.find_all_by_updated_at(Date.parse("2012-03-27"))
+            assert_equal 2483, item.count
         end
 
         def test_finds_item_invoice_items

@@ -49,12 +49,12 @@ module SalesEngine
     end
 
     def test_find_all_by_created_at
-      merchant = Merchant.find_all_by_created_at(Date.parse("2012-03-27 14:53:59 UTC"))
+      merchant = Merchant.find_all_by_created_at(Date.parse("2012-03-27"))
       assert_equal 9,merchant.count
     end
 
     def test_find_all_by_upload_at
-      merchant = Merchant.find_all_by_updated_at(Date.parse("2012-03-27 14:53:59 UTC"))
+      merchant = Merchant.find_all_by_updated_at(Date.parse("2012-03-27"))
       assert_equal 8,merchant.count
     end
 

@@ -46,13 +46,13 @@ module SalesEngine
     end
 
     def test_find_by_created_at
-      transaction = Transaction.find_by_created_at('2012-03-27 14:54:09 UTC')
-      assert_equal "2012-03-27 14:54:09 UTC", transaction.created_at
+      transaction = Transaction.find_by_created_at(Date.parse("2012-03-27"))
+      assert_equal Date.parse("2012-03-27"), transaction.created_at
     end
 
     def test_find_by_updated_at
-      transaction = Transaction.find_by_updated_at('2012-03-27 14:54:09 UTC')
-      assert_equal "2012-03-27 14:54:09 UTC", transaction.updated_at
+      transaction = Transaction.find_by_updated_at(Date.parse("2012-03-27"))
+      assert_equal Date.parse("2012-03-27"), transaction.updated_at
     end
 
     # ********************** Find All By **********************
@@ -83,13 +83,13 @@ module SalesEngine
     end
 
     def test_find_all_by_created_at
-      transaction = Transaction.find_all_by_created_at('2012-03-27 14:54:09 UTC')
-      assert_equal 2, transaction.count
+      transaction = Transaction.find_all_by_created_at(Date.parse("2012-03-27"))
+      assert_equal 5595, transaction.count
     end
 
     def test_find_all_by_updated_at
-      transaction = Transaction.find_all_by_updated_at('2012-03-27 14:54:09 UTC')
-      assert_equal 2, transaction.count
+      transaction = Transaction.find_all_by_updated_at(Date.parse("2012-03-27"))
+      assert_equal 5595, transaction.count
     end
 
     def test_finds_transaction_invoices
