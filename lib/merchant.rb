@@ -1,5 +1,5 @@
 require 'csv'
-require 'time'
+require 'date'
 require 'bigdecimal'
 require_relative 'item'
 
@@ -10,8 +10,8 @@ class Merchant
   def initialize(input)
     @id = input["id"].to_i
     @name = input["name"]
-    @created_at = Time.parse(input["created_at"]).to_s
-    @updated_at = Time.parse(input["updated_at"]).to_s
+    @created_at = Date.parse(input["created_at"]) 
+    @updated_at = Date.parse(input["updated_at"])
   end
 
   def to_s
@@ -35,11 +35,11 @@ class Merchant
   end
 
   def self.find_by_created_at(created_at)
-    collection.find{|merchant| merchant.created_at.downcase == created_at.downcase}
+    collection.find{|merchant| merchant.created_at == created_at}
   end
 
   def self.find_by_updated_at(updated_at)
-    collection.find{|merchant| merchant.updated_at.downcase == updated_at.downcase}
+    collection.find{|merchant| merchant.updated_at == updated_at}
   end
 
   def self.find_all_by_id(id)
@@ -51,11 +51,11 @@ class Merchant
   end
 
   def self.find_all_by_created_at(created_at)
-    collection.select{|merchant| merchant.created_at.downcase == created_at.downcase}
+    collection.select{|merchant| merchant.created_at == created_at}
   end
 
   def self.find_all_by_updated_at(updated_at)
-    collection.select{|merchant| merchant.updated_at.downcase == updated_at.downcase}
+    collection.select{|merchant| merchant.updated_at == updated_at}
   end
 
   def self.random
@@ -82,7 +82,7 @@ class Merchant
     else  
       grand_total = 0
       invoices.each do |invoice|
-        if invoice.paid? && invoice.created_at.include?(date)
+        if invoice.paid? && invoice.created_at == date
           grand_total = grand_total + invoice.total
         end
       end

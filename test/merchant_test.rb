@@ -19,11 +19,9 @@ class MerchantTest <MiniTest::Unit::TestCase
   end
 
   def test_create_merchant
-    merchant = Merchant.new({"id" => 1, "name" => 2, "created_at" => "2012-03-25 09:54:09 UTC", "updated_at" =>"2012-03-25 09:54:09 UTC"})
+    merchant = Merchant.new({"id" => 1, "name" => 2})
     assert_equal 1, merchant.id
     assert_equal 2, merchant.name
-    assert_equal Time.utc(2012, 3, 25, 9, 54, 9).to_s, merchant.created_at
-    assert_equal Time.utc(2012, 3, 25, 9, 54, 9).to_s, merchant.updated_at 
   end
 
 # ********************** Find By **********************

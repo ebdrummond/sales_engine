@@ -1,5 +1,5 @@
 require 'csv'
-require 'time'
+require 'date'
 
 
 class Transaction
@@ -11,8 +11,8 @@ class Transaction
     @credit_card_number = input["credit_card_number"].to_i
     @credit_card_expiration_date = input["credit_card_expiration_date"] || ""
     @result = input["result"]
-    @created_at = Time.parse(input["created_at"]).to_s
-    @updated_at = Time.parse(input["updated_at"]).to_s
+    @created_at = Date.parse(input["created_at"])
+    @updated_at = Date.parse(input["updated_at"])
   end
 
   def self.store(transactions)
@@ -50,11 +50,11 @@ class Transaction
   end
 
   def self.find_by_created_at(created_at)
-    collection.find{|transaction| transaction.created_at.downcase == created_at.downcase}
+    collection.find{|transaction| transaction.created_at == created_at}
   end
 
   def self.find_by_updated_at(updated_at)
-    collection.find{|transactions| transactions.updated_at.downcase == updated_at.downcase}
+    collection.find{|transactions| transactions.updated_at == updated_at}
   end
 
   # ***************************** Find All By *****************************
@@ -80,11 +80,11 @@ class Transaction
   end
 
   def self.find_all_by_created_at(created_at)
-    collection.select{|transaction| transaction.created_at.downcase == created_at.downcase}
+    collection.select{|transaction| transaction.created_at == created_at}
   end
 
   def self.find_all_by_updated_at(updated_at)
-    collection.select{|transactions| transactions.updated_at.downcase == updated_at.downcase}
+    collection.select{|transactions| transactions.updated_at == updated_at}
   end
 
   # ***************************** Random *****************************
@@ -100,4 +100,20 @@ class Transaction
   def successful?
     result == "success"
   end
+
+  def self.generate_id
+    collection.count +1
+  end
+
+  def self.create(input)
+    transaction = Transaction.new ({"id" => generate_id,
+                                                      "invoice_id" => input[:invoice_id],
+                                                      "credit_card_number" => input[:credit_card_number],
+                                                      "credit_card_expiration_date" => input[:credit_card_expiration_date],
+                                                      "result" => input[:result],
+                                                      "created_at" => Time.now.to_s,
+                                                      "updated_at" => Time.now.to_s})
+    @transactions << transaction
+  end
 end
+

@@ -1,6 +1,6 @@
 require 'csv'
-require 'time'
-require './lib/invoice_item'
+require 'date'
+require_relative 'invoice_item'
 
 class Invoice
 
@@ -11,8 +11,8 @@ class Invoice
     @customer_id = input["customer_id"].to_i
     @merchant_id = input["merchant_id"].to_i
     @status = input["status"]
-    @created_at = Time.parse(input["created_at"]).to_s
-    @updated_at = Time.parse(input["updated_at"]).to_s
+    @created_at = Date.parse(input["created_at"])
+    @updated_at = Date.parse(input["updated_at"])
   end
 
   def to_s
@@ -45,11 +45,11 @@ class Invoice
   end
 
   def self.find_by_created_at(created_at)
-    collection.find{|invoice| invoice.created_at.downcase == created_at.downcase}
+    collection.find{|invoice| invoice.created_at == created_at}
   end
 
   def self.find_by_updated_at(updated_at)
-    collection.find{|invoice| invoice.updated_at.downcase == updated_at.downcase}
+    collection.find{|invoice| invoice.updated_at == updated_at}
   end
 # ***************************** Find All By *****************************
   def self.find_all_by_id(id)
@@ -69,11 +69,11 @@ class Invoice
   end
 
   def self.find_all_by_created_at(created_at)
-    collection.select{|invoice| invoice.created_at.downcase == created_at.downcase}
+    collection.select{|invoice| invoice.created_at == created_at}
   end
 
   def self.find_all_by_updated_at(updated_at)
-    collection.select{|invoice| invoice.updated_at.downcase == updated_at.downcase}
+    collection.select{|invoice| invoice.updated_at == updated_at}
   end
 # ***************************** Find Random *****************************
 
@@ -87,6 +87,10 @@ class Invoice
 
   def paid?
     transactions.any?{|transaction| transaction.successful? }
+  end
+
+  def valid_invoices
+    transactions.select{|transaction| transaction.successful? }
   end
 
   def total
@@ -119,23 +123,56 @@ class Invoice
   end
 
   def self.generate_id
-    collection.count +2
+    collection.count + 1
   end
 
   def self.create(input)
     invoice = Invoice.new({"id" => generate_id,
                                         "customer_id" => input[:customer].id,
                                         "merchant_id" => input[:merchant].id,
+                                        "status" => input[:status],
                                         "created_at" => Time.now.to_s, 
                                         "updated_at" => Time.now.to_s})
-    input[:items].each do |item|
-      InvoiceItem.create(:invoice_id => invoice.id, :item_id =>item.id)
+
+    @invoices << invoice
+
+    items = input[:items]
+    items_count = Hash.new(0)
+    items.each do |item|
+      items_count[item] = items_count[item] + 1 
     end
-    collection << invoice
-    invoice
+
+    items_count.each do |item, quantity|
+      InvoiceItem.create("invoice_id" => invoice.id,
+                                    "item_id" => item.id,
+                                    "unit_price" => item.unit_price,
+                                    "quantity" => quantity
+                                    )
+    end
+  end
+
+  def charge(input)
+    credit_card_number = input[:credit_card_number]
+    credit_card_expiration = input[:credit_card_expiration]
+    result = input[:result]
+
+    Transaction.create("credit_card_number" => credit_card_number,
+                                  "credit_card_expiration" => credit_card_expiration,
+                                  "result" => result,
+                                  "invoice_id" => id
+                                  )
   end
 
 end
+
+#     @id = input["id"].to_i
+#     @invoice_id = input["invoice_id"].to_i
+#     @credit_card_number = input["credit_card_number"].to_i
+#     @credit_card_expiration_date = input["credit_card_expiration_date"] || ""
+#     @result = input["result"]
+#     @created_at = Time.parse(input["created_at"]).to_s
+#     @updated_at = Time.parse(input["updated_at"]).to_s
+#   end
 
 
 

@@ -1,4 +1,3 @@
-
 require 'csv'
 require_relative 'invoice'
 require_relative 'merchant'
@@ -184,8 +183,8 @@ LoadFiles.load_invoice_items_file
 # puts customer.transactions
 
 
-# customer = Customer.find_by_id(13)
-# puts customer.transactions
+customer = Customer.find_by_id(29)
+puts customer.transactions
 
 # merchant = Merchant.find_by_id(29)
 # puts merchant.sorted_customers_per_merchant

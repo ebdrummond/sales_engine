@@ -1,5 +1,5 @@
 require 'csv'
-require 'time'
+require 'date'
 # require 'lib/load_files'
 
 
@@ -12,8 +12,8 @@ class Item
     @description = input["description"]
     @unit_price = input["unit_price"].to_i
     @merchant_id = input["merchant_id"].to_i
-    @created_at = Time.parse(input["created_at"]).to_s
-    @updated_at = Time.parse(input["updated_at"]).to_s
+    @created_at = Date.parse(input["created_at"])
+    @updated_at = Date.parse(input["updated_at"])
   end
 
   def to_s
@@ -51,11 +51,11 @@ class Item
   end
 
   def self.find_by_created_at(created_at)
-    collection.find{|item| item.created_at.downcase == created_at.downcase}
+    collection.find{|item| item.created_at == created_at}
   end
 
   def self.find_by_updated_at(updated_at)
-    collection.find{|item| item.updated_at.downcase == updated_at.downcase}
+    collection.find{|item| item.updated_at== updated_at}
   end
 
   # ***************************** Find All By *****************************
@@ -81,11 +81,11 @@ class Item
   end
 
   def self.find_all_by_created_at(created_at)
-    collection.select{|item| item.created_at.downcase == created_at.downcase}
+    collection.select{|item| item.created_at == created_at}
   end
 
   def self.find_all_by_updated_at(updated_at)
-    collection.select{|item| item.updated_at.downcase == updated_at.downcase}
+    collection.select{|item| item.updated_at == updated_at}
   end  
 
   # ***************************** Find Random *****************************

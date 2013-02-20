@@ -18,14 +18,12 @@ class ItemTest <MiniTest::Unit::TestCase
   end
 
   def test_create_item
-    item = Item.new({"id" => 1, "name" => 2, "description" => 3, "unit_price" => 4, "merchant_id" => 5, "created_at" => "2012-03-25 09:54:09 UTC", "updated_at" =>"2012-03-25 09:54:09 UTC"})
+    item = Item.new({"id" => 1, "name" => 2, "description" => 3, "unit_price" => 4, "merchant_id" => 5})
     assert_equal 1, item.id
     assert_equal 2, item.name
     assert_equal 3, item.description
     assert_equal 4, item.unit_price
     assert_equal 5, item.merchant_id
-    assert_equal Time.utc(2012, 3, 25, 9, 54, 9).to_s, item.created_at
-    assert_equal Time.utc(2012, 3, 25, 9, 54, 9).to_s, item.updated_at 
   end
 
   def test_finds_an_item_by_id
@@ -112,7 +110,7 @@ class ItemTest <MiniTest::Unit::TestCase
     assert_equal 19, item.invoice_items.count
     end
     
-    def test_finds_item_merchants
+    def test_finds_item_merchant
     merchants_file = CSV.open("./data/merchants.csv", headers: true)
     merchants = []
 
@@ -121,9 +119,9 @@ class ItemTest <MiniTest::Unit::TestCase
     end
     Merchant.store(merchants)
 
-    item = Item.find_by_merchant_id(29)
+    item = Item.find_by_id(29)
     item.merchant
-    assert_equal 9,item.merchant.count
+    assert_equal "Klein, Rempel and Jones", item.merchant.name
     end
 
 end

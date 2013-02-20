@@ -1,5 +1,6 @@
 require 'csv'
-require 'time'
+require 'date'
+require 'bigdecimal'
  
 class InvoiceItem
 
@@ -11,8 +12,8 @@ class InvoiceItem
     @invoice_id = input["invoice_id"].to_i
     @quantity = input["quantity"].to_i
     @unit_price = input["unit_price"].to_i
-    @created_at = Time.parse(input["created_at"]).to_s
-    @updated_at = Time.parse(input["updated_at"]).to_s
+    @created_at = Date.parse(input["created_at"])
+    @updated_at = Date.parse(input["updated_at"])
   end
 
   def to_s
@@ -48,11 +49,11 @@ class InvoiceItem
   end
 
   def self.find_by_created_at(created_at)
-    collection.find{|invoice_item| invoice_item.created_at.downcase == created_at.downcase}
+    collection.find{|invoice_item| invoice_item.created_at == created_at}
   end
 
   def self.find_by_updated_at(updated_at)
-    collection.find{|invoice_item| invoice_item.updated_at.downcase == updated_at.downcase}
+    collection.find{|invoice_item| invoice_item.updated_at == updated_at}
   end
 
   def self.find_all_by_id(id)
@@ -76,11 +77,11 @@ class InvoiceItem
   end
 
   def self.find_all_by_created_at(created_at)
-    collection.select{|invoice_item| invoice_item.created_at.downcase == created_at.downcase}
+    collection.select{|invoice_item| invoice_item.created_at == created_at}
   end
 
   def self.find_all_by_updated_at(updated_at)
-    collection.select{|invoice_item| invoice_item.updated_at.downcase == updated_at.downcase}
+    collection.select{|invoice_item| invoice_item.updated_at == updated_at}
   end
 
   def self.random
@@ -96,6 +97,21 @@ class InvoiceItem
   end
 
   def subtotal
-    quantity * unit_price
+    BigDecimal.new(quantity * unit_price)
+  end
+
+  def self.generate_id
+    collection.count +1
+  end
+
+  def self.create(input)
+    invoice_item = InvoiceItem.new({"id" => generate_id,
+                                        "item_id" => input[:item_id],
+                                        "invoice_id" => input[:invoice_id],
+                                        "quantity" => input[:quantity],
+                                        "unit_price" => input[:unit_price],
+                                        "created_at" => Time.now.to_s, 
+                                        "updated_at" => Time.now.to_s})
+    @invoice_items << invoice_item
   end
 end

@@ -97,8 +97,7 @@ class TransactionTest <MiniTest::Unit::TestCase
   end
 
   def test_finds_transaction_invoices
-  # need to load in the related csv
-    invoices_file = CSV.open("./data/test_invoices.csv", headers: true)
+    invoices_file = CSV.open("./data/invoices.csv", headers: true)
     invoices = []
 
     invoices_file.each do |row|
@@ -106,9 +105,9 @@ class TransactionTest <MiniTest::Unit::TestCase
     end
     Invoice.store(invoices)
 
-    transaction = Transaction.find_by_invoice_id(5)
-    Invoice.find_by_id(5)
-    assert_equal 1, transaction.invoice.count
+    transaction = Transaction.find_by_id(5)
+    transaction.invoice
+    assert_equal 6, transaction.invoice.id
   end
 
 end
