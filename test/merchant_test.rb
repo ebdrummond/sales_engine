@@ -26,9 +26,9 @@ module SalesEngine
     end
 
     def test_find_by_created_at
-      date = Date.parse("2012-03-27")
+      date = "2012-03-27"
       merchant = Merchant.find_by_created_at(date)
-      assert_equal Date.parse("2012-03-27"), merchant.created_at
+      assert_equal "2012-03-27", merchant.created_at
     end
 
     def test_find_by_updated_at
@@ -50,7 +50,7 @@ module SalesEngine
     end
 
     def test_find_all_by_created_at
-      date = Date.parse("2012-03-27")
+      date = "2012-03-27"
       merchant = Merchant.find_all_by_created_at(date)
       assert_equal 100,merchant.count
     end
