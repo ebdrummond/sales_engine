@@ -1,7 +1,8 @@
 module SalesEngine
   class InvoiceItem
 
-    attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at
+    attr_reader :id, :item_id, :invoice_id, :quantity,
+                      :unit_price, :created_at, :updated_at
 
     def initialize(input)
       @id = input["id"].to_i
@@ -14,7 +15,9 @@ module SalesEngine
     end
 
     def to_s
-      "#{@id} #{@item_id} #{@invoice_id} #{@quantity} #{@unit_price} #{@created_at} #{@updated_at}"
+      [@id, @item_id, @invoice_id, @quantity,
+        @unit_price, @created_at, @updated_at
+        ].join(" ")
     end
 
     def self.store(invoice_items)
@@ -107,7 +110,7 @@ module SalesEngine
                                           "invoice_id" => input[:invoice_id],
                                           "quantity" => input[:quantity],
                                           "unit_price" => input[:unit_price],
-                                          "created_at" => Time.now.to_s, 
+                                          "created_at" => Time.now.to_s,
                                           "updated_at" => Time.now.to_s})
       @invoice_items << invoice_item
       return invoice_item

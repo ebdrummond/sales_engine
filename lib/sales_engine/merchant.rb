@@ -120,7 +120,7 @@ module SalesEngine
     end
 
     def customers_with_pending_invoices
-      pending_invoices.inject([]) do |customers, invoice| 
+      pending_invoices.inject([]) do |customers, invoice|
         customers << invoice.customer
       end
     end
@@ -136,7 +136,10 @@ module SalesEngine
     end
 
     def sorted_customers_per_merchant
-      sorted_list = customers_per_merchant.sort_by{|customer_id, purchases| purchases }.reverse
+      sorted_list = customers_per_merchant.sort_by do |customer_id, purchases|
+        purchases
+      end
+      sorted_list.reverse
       sorted_list.first[0]
     end
 
