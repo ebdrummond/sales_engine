@@ -95,9 +95,7 @@ module SalesEngine
 
     def total
       if self.paid?
-        sum = invoice_items.collect do |invoice_item|
-          invoice_item.subtotal end
-          sum.inject(:+) || 0
+        sum = invoice_items.collect {|invoice_item| invoice_item.subtotal}.inject(:+) || 0
       else
         sum = 0
       end
@@ -109,9 +107,7 @@ module SalesEngine
     end
 
     def item_count
-      inv_item = invoice_items.collect do |invoice_item|
-        invoice_item.quantity end
-        inv_item.inject(:+) || 0
+      invoice_items.collect {|invoice_item| invoice_item.quantity}.inject(:+) || 0
     end
 
     def items
