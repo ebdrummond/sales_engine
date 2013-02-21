@@ -141,6 +141,20 @@ module SalesEngine
       assert_equal "Osinski", invoice.customer.last_name
     end
 
+    def test_finds_item_count
+      items_file = CSV.open("./data/items.csv", headers: true)
+      items = []
+
+      items_file.each do |row|
+          items << Item.new(row)
+      end
+      Item.store(items)
+
+      invoice = Invoice.find_by_id(29)
+      invoice.item_count
+      assert_equal 37, invoice.item_count
+    end
+
     # def test_creating_an_invoice_makes_an_invoice
     #   starting_count = Invoice.count
     #   Invoice.create 
@@ -210,8 +224,5 @@ module SalesEngine
     #   invoice.valid_transaction
     #   assert_equal 1, invoice.valid_transaction.count
     # end
-
-
-
   end
 end

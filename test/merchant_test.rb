@@ -88,5 +88,116 @@ module SalesEngine
       Invoice.find_all_by_merchant_id(29)
       assert_equal 49, merchant.invoices.count
     end
+
+    def test_finds_merchant_revenue_for_all_dates
+      invoice_items_file = CSV.open("./data/invoice_items.csv", headers: true)
+      invoice_items = []
+
+      invoice_items_file.each do |row|
+      invoice_items << InvoiceItem.new(row)
+      end
+      InvoiceItem.store(invoice_items)
+
+      invoices_file = CSV.open("./data/invoices.csv", headers: true)
+      invoices = []
+
+      invoices_file.each do |row|
+      invoices << Invoice.new(row)
+      end
+      Invoice.store(invoices)
+
+      merchant = Merchant.find_by_id(29)
+      merchant.revenue
+      assert_equal (BigDecimal.new(59881657 / 100.0, 12)), merchant.revenue
+    end
+
+    # def test_finds_most_revenue
+    #   invoice_items_file = CSV.open("./data/invoice_items.csv", headers: true)
+    #   invoice_items = []
+
+    #   invoice_items_file.each do |row|
+    #   invoice_items << InvoiceItem.new(row)
+    #   end
+    #   InvoiceItem.store(invoice_items)
+
+    #   invoices_file = CSV.open("./data/invoices.csv", headers: true)
+    #   invoices = []
+
+    #   invoices_file.each do |row|
+    #   invoices << Invoice.new(row)
+    #   end
+    #   Invoice.store(invoices)
+
+    #   merchant = Merchant.collection
+    #   merchants = merchant.most_revenue(5)
+    #   assert_equal ("Dicki-Bednar"), merchants[0].name
+    # end
+
+    def test_if_merchant_finds_item_count
+      invoice_items_file = CSV.open("./data/invoice_items.csv", headers: true)
+      invoice_items = []
+
+      invoice_items_file.each do |row|
+      invoice_items << InvoiceItem.new(row)
+      end
+      InvoiceItem.store(invoice_items)
+
+      invoices_file = CSV.open("./data/invoices.csv", headers: true)
+      invoices = []
+
+      invoices_file.each do |row|
+      invoices << Invoice.new(row)
+      end
+      Invoice.store(invoices)
+
+      items_file = CSV.open("./data/items.csv", headers: true)
+      items = []
+
+      items_file.each do |row|
+        items << Item.new(row)
+      end
+      Item.store(items)
+
+      merchant = Merchant.find_by_id(28)
+      merchant.item_count
+      assert_equal 1021, merchant.item_count
+    end
+
+    def test_invoices_paid_count
+      invoices_file = CSV.open("./data/invoices.csv", headers: true)
+      invoices = []
+
+      invoices_file.each do |row|
+      invoices << Invoice.new(row)
+      end
+      Invoice.store(invoices)
+
+      merchant = Merchant.find_by_id(27)
+      merchant.paid_invoices
+      assert_equal 46, merchant.paid_invoices.count
+    end
+
+    def test_pending_invoices
+      invoices_file = CSV.open("./data/invoices.csv", headers: true)
+      invoices = []
+
+      invoices_file.each do |row|
+      invoices << Invoice.new(row)
+      end
+      Invoice.store(invoices)
+
+      transactions_file = CSV.open("./data/transactions.csv", headers: true)
+      transactions = []
+
+      transactions_file.each do |row|
+        transactions << Transaction.new(row)
+      end
+      Transaction.store(transactions)
+
+      merchant = Merchant.find_by_id(88)
+      merchant.pending_invoices
+      assert_equal 3,merchant.pending_invoices.count
+    end
+
   end
 end

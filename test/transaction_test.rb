@@ -105,6 +105,5 @@ module SalesEngine
       transaction.invoice
       assert_equal 6, transaction.invoice.id
     end
-
   end
 end

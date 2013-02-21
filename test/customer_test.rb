@@ -192,5 +192,27 @@ module SalesEngine
       customer.transactions
       assert_equal 7, customer.transactions.count
     end
+
+    def test_finds_favorite_merchant
+      transactions_file = CSV.open("./data/transactions.csv", headers: true)
+      transactions= []
+
+      transactions_file.each do |row|
+        transactions<< Transaction.new(row)
+      end
+      Transaction.store(transactions)
+
+      invoices_file = CSV.open("./data/invoices.csv", headers: true)
+      invoices = []
+
+      invoices_file.each do |row|
+      invoices << Invoice.new(row)
+      end
+      Invoice.store(invoices)
+
+      customer = Customer.find_by_id(29)
+      customer.favorite_merchant
+      assert_equal 46, customer.favorite_merchant.id
+    end
   end
 end
