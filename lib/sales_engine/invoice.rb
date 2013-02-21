@@ -8,7 +8,7 @@ module SalesEngine
       @customer_id = input["customer_id"].to_i
       @merchant_id = input["merchant_id"].to_i
       @status = input["status"]
-      @created_at = Date.parse(input["created_at"])
+      @created_at = Date.parse(input["created_at"]).strftime("%Y-%m-%d")
       @updated_at = Date.parse(input["updated_at"])
     end
 
@@ -83,7 +83,7 @@ module SalesEngine
     end
 
     def paid?
-      transactions.any?{|transaction| transaction.successful? }
+      @paid ||= transactions.any?{|transaction| transaction.successful? }
     end
 
     def valid_invoices
@@ -91,16 +91,20 @@ module SalesEngine
     end
 
     def total
-      total = 0
-      subtotals = invoice_items.collect{|invoice_item| invoice_item.subtotal }
-      subtotals.each do |subtotal|
-        total = total + subtotal
+      if self.paid?
+        sum = (invoice_items.collect{|invoice_item| invoice_item.subtotal }.inject(:+) || 0)
+      else
+        sum = 0
       end
-      return total
+      BigDecimal.new(sum/100.0, 12)
     end
 
     def invoice_items
       InvoiceItem.find_all_by_invoice_id(id)
+    end
+
+    def item_count
+      invoice_items.collect{|invoice_item| invoice_item.quantity}.inject(:+) || 0
     end
 
     def items
@@ -140,12 +144,15 @@ module SalesEngine
       end
 
       items_count.each do |item, quantity|
-        InvoiceItem.create("invoice_id" => invoice.id,
-                                      "item_id" => item.id,
-                                      "unit_price" => item.unit_price,
-                                      "quantity" => quantity
+         InvoiceItem.create(
+                                      :invoice_id => invoice.id,
+                                      :item_id     => item.id,
+                                      :unit_price => item.unit_price,
+                                      :quantity    => quantity
                                       )
       end
+
+      return invoice
     end
 
     def charge(input)
@@ -153,10 +160,11 @@ module SalesEngine
       credit_card_expiration = input[:credit_card_expiration]
       result = input[:result]
 
-      Transaction.create("credit_card_number" => credit_card_number,
-                                    "credit_card_expiration" => credit_card_expiration,
-                                    "result" => result,
-                                    "invoice_id" => id
+      Transaction.create(
+                                    :credit_card_number => credit_card_number,
+                                    :credit_card_expiration => credit_card_expiration,
+                                    :result => result,
+                                    :invoice_id => id
                                     )
     end
   end

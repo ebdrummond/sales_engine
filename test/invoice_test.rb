@@ -13,14 +13,6 @@ module SalesEngine
       Invoice.store(invoices)
     end
 
-    def test_create_invoice
-      invoice = Invoice.new({"id" => 1, "merchant_id" => 2, "customer_id" => 3, "status" => 4})
-      assert_equal 1, invoice.id
-      assert_equal 2, invoice.merchant_id
-      assert_equal 3, invoice.customer_id
-      assert_equal 4, invoice.status
-    end
-
     def test_finds_an_invoice_by_id
       invoice = Invoice.find_by_id(1)
       assert_equal 1, invoice.id

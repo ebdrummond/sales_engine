@@ -5,7 +5,7 @@ module SalesEngine
     def initialize(input)
       @id = input["id"].to_i
       @invoice_id = input["invoice_id"].to_i
-      @credit_card_number = input["credit_card_number"].to_i
+      @credit_card_number = input["credit_card_number"]
       @credit_card_expiration_date = input["credit_card_expiration_date"] || ""
       @result = input["result"]
       @created_at = Date.parse(input["created_at"])
@@ -73,7 +73,7 @@ module SalesEngine
     end
 
     def self.find_all_by_result(result)
-      collection.select{|transaction| transaction.result.downcase == result.downcase}
+      collection.select{|transaction| transaction.result == result}
     end
 
     def self.find_all_by_created_at(created_at)

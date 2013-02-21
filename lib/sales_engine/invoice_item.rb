@@ -94,7 +94,7 @@ module SalesEngine
     end
 
     def subtotal
-      quantity * unit_price
+       quantity * unit_price
     end
 
     def self.generate_id
@@ -110,6 +110,7 @@ module SalesEngine
                                           "created_at" => Time.now.to_s, 
                                           "updated_at" => Time.now.to_s})
       @invoice_items << invoice_item
+      return invoice_item
     end
   end
 end

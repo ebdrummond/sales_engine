@@ -13,13 +13,6 @@ module SalesEngine
       Customer.store(customers)
     end
 
-    def test_create_customer
-      customer = Customer.new({"id" => 1, "first_name" => 2, "last_name" => 3})
-      assert_equal 1, customer.id
-      assert_equal 2, customer.first_name
-      assert_equal 3, customer.last_name
-    end
-
     def test_finds_a_customer_by_id
       customer = Customer.find_by_id(6)
       assert_equal 6, customer.id

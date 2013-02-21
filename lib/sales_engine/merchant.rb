@@ -1,3 +1,4 @@
+
 module SalesEngine
   class Merchant
     attr_reader :id, :name, :created_at, :updated_at
@@ -6,7 +7,7 @@ module SalesEngine
     def initialize(input)
       @id = input["id"].to_i
       @name = input["name"]
-      @created_at = Date.parse(input["created_at"])
+      @created_at = Date.parse(input["created_at"]).strftime("%Y-%m-%d")
       @updated_at = Date.parse(input["updated_at"])
     end
 
@@ -74,16 +75,21 @@ module SalesEngine
             grand_total = grand_total + invoice.total
           end
         end
-        BigDecimal.new(grand_total)
-      else  
+        grand_total
+      else
+        revenues(date)
+      end
+    end
+
+    def revenues(date)
+      date = date.strftime("%Y-%m-%d")
         grand_total = 0
         invoices.each do |invoice|
           if invoice.paid? && invoice.created_at == date
             grand_total = grand_total + invoice.total
           end
         end
-      end
-      BigDecimal.new(grand_total)
+        grand_total
     end
 
     def self.revenue(date)
@@ -96,16 +102,12 @@ module SalesEngine
       highest_earners.reverse[0..number-1]
     end
 
+    def paid_invoices
+      invoices.select{|i| i.paid? }
+    end
+
     def item_count
-      grand_total = 0
-      invoices.each do |invoice|
-        if invoice.paid?
-          invoice.invoice_items.each do |invoice_item|
-            grand_total = invoice_item.quantity + grand_total
-          end
-        end
-      end
-      grand_total
+      @item_count ||= (paid_invoices.collect{|i| i.item_count}.inject(:+) || 0)
     end
 
     def self.most_items(number)

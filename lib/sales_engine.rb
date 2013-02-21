@@ -1,5 +1,6 @@
 require 'csv'
 require 'time'
+require 'date'
 require 'bigdecimal'
 
 require 'sales_engine/invoice'

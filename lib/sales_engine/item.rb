@@ -6,7 +6,7 @@ module SalesEngine
       @id = input["id"].to_i
       @name = input["name"]
       @description = input["description"]
-      @unit_price = input["unit_price"].to_i
+      @unit_price = BigDecimal.new(input["unit_price"].to_i / 100.0, 12)
       @merchant_id = input["merchant_id"].to_i
       @created_at = Date.parse(input["created_at"])
       @updated_at = Date.parse(input["updated_at"])
@@ -39,7 +39,7 @@ module SalesEngine
     end
 
     def self.find_by_unit_price(unit_price)
-      collection.find{|item| item.unit_price == unit_price}
+      collection.find{|item| item.unit_price == BigDecimal.new(unit_price)}
     end
 
     def self.find_by_merchant_id(merchant_id)
@@ -99,43 +99,36 @@ module SalesEngine
     end
 
     def invoices
-      invoices = []
-      invoice_items.each do |invoice_item|
-        invoices << invoice_item.invoice
-      end
-      invoices
+      @invoices ||= invoice_items.collect{|invoice_item| invoice_item.invoice}.uniq
+    end
+
+    def paid_invoices
+      @paid_invoices ||= invoices.select{|invoice| invoice.paid? }
     end
 
     def revenue
-      grand_total = 0
-      invoices.each do |invoice|
-        if invoice.paid?
-          grand_total = grand_total + invoice.total
-          end
-        end
-      grand_total
+       #paid_invoices.collect{|invoice| invoice.total}.inject(:+) || 0 
+       paid_invoice_items = invoice_items.select{|ii| ii.invoice.paid? }
+       paid_invoice_items.collect{|ii| ii.subtotal}.inject(:+) || 0
     end
 
     def self.most_revenue(number)
-      highest_earners = collection.sort_by{|item| item.revenue}
-      highest_earners.reverse[0..number-1]
+      collection.sort_by{|item| item.revenue}.reverse.take(number)
     end
 
-    def item_count
-      grand_total = 0
-        invoices.each do |invoice|
-        if invoice.paid?
-          invoice.invoice_items.each do |invoice_item|
-          grand_total = invoice_item.quantity + grand_total
-          end
+    def total_sold
+      total = 0
+      invoice_items.each do |invoice_item|
+        if invoice_item.invoice.paid?
+          total += invoice_item.quantity
         end
       end
-      grand_total
+      return total
     end
 
     def self.most_items(number)
-      highest_sellers = collection.sort_by{|item| item.item_count}
-      highest_sellers.reverse[0..number-1]
+      highest_sellers = collection.sort_by{|item| item.total_sold}
+      highest_sellers.reverse[0,number]
     end
 
     def items_sold_per_day
@@ -147,7 +140,8 @@ module SalesEngine
     end
 
     def best_day
-      items_sold_per_day.max_by{|invoice_date, quantity| quantity}[0]
+      day = items_sold_per_day.max_by{|invoice_date, quantity| quantity}[0]
+      Date.parse(day)
     end
   end
 end

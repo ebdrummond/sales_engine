@@ -31,8 +31,8 @@ module SalesEngine
     end
 
     def test_find_by_credit_card_number
-      transaction = Transaction.find_by_credit_card_number(4580251236515201)
-      assert_equal 4580251236515201, transaction.credit_card_number
+      transaction = Transaction.find_by_credit_card_number("4580251236515201")
+      assert_equal "4580251236515201", transaction.credit_card_number
     end
 
     def test_find_by_credit_card_expiration_date
@@ -41,7 +41,7 @@ module SalesEngine
     end
 
     def test_find_by_result
-      transaction = Transaction.find_by_result("SUCCESS")
+      transaction = Transaction.find_by_result("success")
       assert_equal "success", transaction.result
     end
 
@@ -68,7 +68,7 @@ module SalesEngine
     end
 
     def test_find_all_by_credit_card_number
-      transaction = Transaction.find_all_by_credit_card_number(4580251236515201)
+      transaction = Transaction.find_all_by_credit_card_number("4580251236515201")
       assert_equal 1, transaction.count
     end
 
@@ -78,7 +78,7 @@ module SalesEngine
     end
 
     def test_find_all_by_result
-      transaction = Transaction.find_all_by_result("Success")
+      transaction = Transaction.find_all_by_result("success")
       assert_equal 4648, transaction.count
     end
 

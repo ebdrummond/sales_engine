@@ -13,15 +13,6 @@ module SalesEngine
           Item.store(items)
       end
 
-      # def test_create_item
-      #   item = Item.new({"id" => 1, "name" => 2, "description" => 3, "unit_price" => 4, "merchant_id" => 5})
-      #   assert_equal 1, item.id
-      #   assert_equal 2, item.name
-      #   assert_equal 3, item.description
-      #   assert_equal 4, item.unit_price
-      #   assert_equal 5, item.merchant_id
-      # end
-
         def test_finds_an_item_by_id
             item = Item.find_by_id(1)
             assert_equal 1, item.id
