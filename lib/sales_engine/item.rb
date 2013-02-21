@@ -1,6 +1,7 @@
 module SalesEngine
   class Item
-    attr_reader :id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at
+    attr_reader :id, :name, :description, :unit_price,
+                      :merchant_id, :created_at, :updated_at
 
     def initialize(input)
       @id = input["id"].to_i
@@ -13,7 +14,9 @@ module SalesEngine
     end
 
     def to_s
-      "#{@id} #{@name} #{@description} #{@unit_price} #{@merchant_id} #{@created_at} #{@updated_at}"
+      [@id, @name, @description, @unit_price,
+        @merchant_id, @created_at, @updated_at
+        ].join(" ")
     end
 
     def self.store(items)
@@ -65,7 +68,9 @@ module SalesEngine
     end
 
     def self.find_all_by_description(description)
-      collection.select{|item| item.description.downcase == description.downcase}
+      collection.select do |item|
+        item.description.downcase == description.downcase
+      end
     end
 
     def self.find_all_by_unit_price(unit_price)
@@ -82,7 +87,7 @@ module SalesEngine
 
     def self.find_all_by_updated_at(updated_at)
       collection.select{|item| item.updated_at == updated_at}
-    end  
+    end
 
     # ***************************** Find Random *****************************
 
@@ -99,7 +104,9 @@ module SalesEngine
     end
 
     def invoices
-      @invoices ||= invoice_items.collect{|invoice_item| invoice_item.invoice}.uniq
+      @invoices ||= invoice_items.collect do |invoice_item|
+        invoice_item.invoice.uniq
+      end
     end
 
     def paid_invoices
@@ -107,7 +114,6 @@ module SalesEngine
     end
 
     def revenue
-       #paid_invoices.collect{|invoice| invoice.total}.inject(:+) || 0 
        paid_invoice_items = invoice_items.select{|ii| ii.invoice.paid? }
        paid_invoice_items.collect{|ii| ii.subtotal}.inject(:+) || 0
     end
@@ -132,11 +138,11 @@ module SalesEngine
     end
 
     def items_sold_per_day
-      items_per_day = Hash.new(0)
+      i_per_day = Hash.new(0)
       invoice_items.each do |invoice_item|
-        items_per_day[invoice_item.invoice.invoice_date] += invoice_item.quantity
+        i_per_day[invoice_item.invoice.invoice_date] += invoice_item.quantity
       end
-      items_per_day
+      i_per_day
     end
 
     def best_day
