@@ -1,7 +1,8 @@
 module SalesEngine
   class Invoice
 
-    attr_reader :id, :customer_id, :merchant_id, :status, :created_at, :updated_at
+    attr_reader :id, :customer_id, :merchant_id, :status,
+                      :created_at, :updated_at
 
     def initialize(input)
       @id = input["id"].to_i
@@ -13,7 +14,9 @@ module SalesEngine
     end
 
     def to_s
-      "#{@id} #{@customer_id} #{@merchant_id} #{@status} #{@created_at} #{@updated_at}"
+      [@id, @customer_id, @merchant_id, @status,
+        @created_at, @updated_at
+      ].join(" ")
     end
 
     def self.store(invoices)
@@ -92,7 +95,9 @@ module SalesEngine
 
     def total
       if self.paid?
-        sum = (invoice_items.collect{|invoice_item| invoice_item.subtotal }.inject(:+) || 0)
+        sum = invoice_items.collect do |invoice_item|
+          invoice_item.subtotal end
+          sum.inject(:+) || 0
       else
         sum = 0
       end
@@ -104,7 +109,9 @@ module SalesEngine
     end
 
     def item_count
-      invoice_items.collect{|invoice_item| invoice_item.quantity}.inject(:+) || 0
+      inv_item = invoice_items.collect do |invoice_item|
+        invoice_item.quantity end
+        inv_item.inject(:+) || 0
     end
 
     def items
@@ -128,19 +135,20 @@ module SalesEngine
     end
 
     def self.create(input)
-      invoice = Invoice.new({"id" => generate_id,
-                                          "customer_id" => input[:customer].id,
-                                          "merchant_id" => input[:merchant].id,
-                                          "status" => input[:status],
-                                          "created_at" => Time.now.to_s, 
-                                          "updated_at" => Time.now.to_s})
+      invoice = Invoice.new(
+          {"id" => generate_id,
+          "customer_id" => input[:customer].id,
+          "merchant_id" => input[:merchant].id,
+          "status" => input[:status],
+          "created_at" => Time.now.to_s,
+          "updated_at" => Time.now.to_s})
 
       @invoices << invoice
 
       items = input[:items]
       items_count = Hash.new(0)
       items.each do |item|
-        items_count[item] = items_count[item] + 1 
+        items_count[item] = items_count[item] + 1
       end
 
       items_count.each do |item, quantity|
@@ -161,11 +169,11 @@ module SalesEngine
       result = input[:result]
 
       Transaction.create(
-                                    :credit_card_number => credit_card_number,
-                                    :credit_card_expiration => credit_card_expiration,
-                                    :result => result,
-                                    :invoice_id => id
-                                    )
+        :credit_card_number => credit_card_number,
+        :credit_card_expiration => credit_card_expiration,
+        :result => result,
+        :invoice_id => id
+          )
     end
   end
 end
