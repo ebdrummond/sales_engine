@@ -111,5 +111,19 @@ module SalesEngine
         assert_equal "Klein, Rempel and Jones", item.merchant.name
         end
 
+        def test_finds_total_items_sold
+            invoices_file = CSV.open("./data/invoices.csv", headers: true)
+            invoices = []
+
+            invoices_file.each do |row|
+            invoices << Invoice.new(row)
+            end
+            Invoice.store(invoices)
+
+            item = Item.find_by_id(66)
+            item.total_sold
+            assert_equal 16, item.total_sold
+        end
+
     end
 end

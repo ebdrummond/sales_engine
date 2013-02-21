@@ -105,5 +105,11 @@ module SalesEngine
       transaction.invoice
       assert_equal 6, transaction.invoice.id
     end
+
+    # def test_finds_successful_transactions
+    #   transaction = Transaction.collection
+    #   transaction.successful?
+    #   assert_equal 20000, transaction.successful?.count
+    # end
   end
 end

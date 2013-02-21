@@ -199,5 +199,111 @@ module SalesEngine
       assert_equal 3,merchant.pending_invoices.count
     end
 
+    def test_finds_customers_with_pending_invoices
+      invoices_file = CSV.open("./data/invoices.csv", headers: true)
+      invoices = []
+
+      invoices_file.each do |row|
+      invoices << Invoice.new(row)
+      end
+      Invoice.store(invoices)
+
+      transactions_file = CSV.open("./data/transactions.csv", headers: true)
+      transactions = []
+
+      transactions_file.each do |row|
+        transactions << Transaction.new(row)
+      end
+      Transaction.store(transactions)
+
+      customers_file = CSV.open("./data/customers.csv", headers: true)
+      customers = []
+
+      customers_file.each do |row|
+      customers << Customer.new(row)
+      end
+      Customer.store(customers)
+
+      merchant = Merchant.find_by_id(85)
+      merchant.customers_with_pending_invoices
+      assert_equal 2, merchant.customers_with_pending_invoices.count
+    end
+
+    def test_finds_favorite_customer
+      invoices_file = CSV.open("./data/invoices.csv", headers: true)
+      invoices = []
+
+      invoices_file.each do |row|
+      invoices << Invoice.new(row)
+      end
+      Invoice.store(invoices)
+
+      transactions_file = CSV.open("./data/transactions.csv", headers: true)
+      transactions = []
+
+      transactions_file.each do |row|
+        transactions << Transaction.new(row)
+      end
+      Transaction.store(transactions)
+
+      customers_file = CSV.open("./data/customers.csv", headers: true)
+      customers = []
+
+      customers_file.each do |row|
+      customers << Customer.new(row)
+      end
+      Customer.store(customers)
+
+      invoice_items_file = CSV.open("./data/invoice_items.csv", headers: true)
+      invoice_items = []
+
+      invoice_items_file.each do |row|
+      invoice_items << InvoiceItem.new(row)
+      end
+      InvoiceItem.store(invoice_items)
+
+      merchant = Merchant.find_by_id(92)
+      merchant.favorite_customer
+      assert_equal 586, merchant.favorite_customer.id
+    end
+
+    def test_finds_customers_associated_with_a_specific_merchant
+       invoices_file = CSV.open("./data/invoices.csv", headers: true)
+      invoices = []
+
+      invoices_file.each do |row|
+      invoices << Invoice.new(row)
+      end
+      Invoice.store(invoices)
+
+      transactions_file = CSV.open("./data/transactions.csv", headers: true)
+      transactions = []
+
+      transactions_file.each do |row|
+        transactions << Transaction.new(row)
+      end
+      Transaction.store(transactions)
+
+      customers_file = CSV.open("./data/customers.csv", headers: true)
+      customers = []
+
+      customers_file.each do |row|
+      customers << Customer.new(row)
+      end
+      Customer.store(customers)
+
+      invoice_items_file = CSV.open("./data/invoice_items.csv", headers: true)
+      invoice_items = []
+
+      invoice_items_file.each do |row|
+      invoice_items << InvoiceItem.new(row)
+      end
+      InvoiceItem.store(invoice_items)
+
+      merchant = Merchant.find_by_id(81)
+      merchant.customers_per_merchant
+      assert_equal 53, merchant.customers_per_merchant.count
+    end
+
   end
 end
