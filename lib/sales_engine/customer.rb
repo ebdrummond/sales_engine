@@ -27,11 +27,15 @@ module SalesEngine
     end
 
     def self.find_by_first_name(first_name)
-      collection.find{|customer| customer.first_name.downcase == first_name.downcase}
+      collection.find do |customer|
+        customer.first_name.downcase == first_name.downcase
+      end
     end
 
     def self.find_by_last_name(last_name)
-      collection.find{|customer| customer.last_name.downcase == last_name.downcase}
+      collection.find do |customer|
+        customer.last_name.downcase == last_name.downcase
+      end
     end
 
     def self.find_by_created_at(created_at)
@@ -47,11 +51,15 @@ module SalesEngine
     end
 
     def self.find_all_by_first_name(first_name)
-      collection.select{|customer| customer.first_name.downcase == first_name.downcase}
+      collection.select do |customer|
+        customer.first_name.downcase == first_name.downcase
+      end
     end
 
     def self.find_all_by_last_name(last_name)
-      collection.select{|customer| customer.last_name.downcase == last_name.downcase}
+      collection.select do |customer|
+        customer.last_name.downcase == last_name.downcase
+      end
     end
 
     def self.find_all_by_created_at(created_at)
@@ -81,8 +89,9 @@ module SalesEngine
     end
 
     def sorted_merchants_per_customer
-      sorted_list = merchants_per_customer.sort_by{|merchant_id, purchases| purchases }.reverse
-      sorted_list
+      merchants_per_customer.sort_by do |merchant_id, purchases|
+        purchases
+      end.reverse
     end
 
     def favorite_merchant
