@@ -1,6 +1,8 @@
 module SalesEngine
   class Transaction
-    attr_reader :id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :result, :created_at, :updated_at
+    attr_reader :id, :invoice_id, :credit_card_number,
+                      :credit_card_expiration_date, :result,
+                      :created_at, :updated_at
 
     def initialize(input)
       @id = input["id"].to_i
@@ -17,7 +19,9 @@ module SalesEngine
     end
 
     def to_s
-      "#{@id} #{@invoice_id} #{@credit_card_number} #{@credit_card_expiration_date} #{@result} #{@created_at} #{@updated_at}"
+      [@id, @invoice_id, @credit_card_number, @credit_card_expiration_date,
+        @result, @created_at, @updated_at
+      ].join(" ")
     end
 
     def self.collection
@@ -35,15 +39,21 @@ module SalesEngine
     end
 
     def self.find_by_credit_card_number(credit_card_number)
-      collection.find{|transaction| transaction.credit_card_number == credit_card_number}
+        collection.find do |transaction|
+        transaction.credit_card_number == credit_card_number
+      end
     end
 
     def self.find_by_credit_card_expiration_date(credit_card_expiration_date)
-      collection.find{|transaction| transaction.credit_card_expiration_date == credit_card_expiration_date}
+        collection.find do |transaction|
+        transaction.credit_card_expiration_date == credit_card_expiration_date
+      end
     end
 
     def self.find_by_result(result)
-      collection.find{|transaction| transaction.result.downcase == result.downcase}
+        collection.find do |transaction|
+        transaction.result.downcase == result.downcase
+      end
     end
 
     def self.find_by_created_at(created_at)
@@ -65,11 +75,15 @@ module SalesEngine
     end
 
     def self.find_all_by_credit_card_number(credit_card_number)
-      collection.select{|transaction| transaction.credit_card_number == credit_card_number}
+        collection.select do |transaction|
+        transaction.credit_card_number == credit_card_number
+      end
     end
 
     def self.find_all_by_credit_card_expiration_date(credit_card_expiration_date)
-      collection.select{|transaction| transaction.credit_card_expiration_date == credit_card_expiration_date}
+        collection.select do |transaction|
+        transaction.credit_card_expiration_date == credit_card_expiration_date
+      end
     end
 
     def self.find_all_by_result(result)
@@ -103,13 +117,14 @@ module SalesEngine
     end
 
     def self.create(input)
-      transaction = Transaction.new ({"id" => generate_id,
-                                                        "invoice_id" => input[:invoice_id],
-                                                        "credit_card_number" => input[:credit_card_number],
-                                                        "credit_card_expiration_date" => input[:credit_card_expiration_date],
-                                                        "result" => input[:result],
-                                                        "created_at" => Time.now.to_s,
-                                                        "updated_at" => Time.now.to_s})
+      transaction = Transaction.new ({
+          "id" => generate_id,
+          "invoice_id" => input[:invoice_id],
+          "credit_card_number" => input[:credit_card_number],
+          "credit_card_expiration_date" => input[:credit_card_expiration_date],
+          "result" => input[:result],
+          "created_at" => Time.now.to_s,
+          "updated_at" => Time.now.to_s})
       @transactions << transaction
     end
   end
